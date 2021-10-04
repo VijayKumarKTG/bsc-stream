@@ -1,0 +1,17 @@
+Project Start
+
+1. git clone (url)
+2.npm / yarn install
+3. npm / yarn web
+
+Git Manage:
+
+git checkout -b branchName (1st Time)
+for me for you chanchal,
+
+git fetch origin main
+git pull origin main
+
+git add .
+git commit -m"Message"
+git push origin branchName
