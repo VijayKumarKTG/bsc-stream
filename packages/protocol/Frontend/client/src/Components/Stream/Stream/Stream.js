@@ -155,7 +155,6 @@ console.log(streamId);
           <Navbar></Navbar>
              <header className="container">
           <h1>Sablier Contract Interact</h1>
-          <h1>Sablier Contract Interact</h1>
           <p>please required fields  for creating a streaming</p>
           <h5>Create stream</h5>
           {/* <label>Next Stream Id : {nextStreamId} </label> <br/>
