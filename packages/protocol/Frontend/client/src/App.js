@@ -61,6 +61,7 @@ function startApp(provider) {
   // window.ethereum, something is overwriting it, perhaps another wallet.
   if (provider !== window.ethereum) {
     console.error('Do you have multiple wallets installed?');
+
   }
   // Access the decentralized web!
 }
