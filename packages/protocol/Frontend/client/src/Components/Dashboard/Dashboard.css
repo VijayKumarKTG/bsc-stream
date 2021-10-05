@@ -1,0 +1,15 @@
+.header-container{
+  
+  margin: 2%;
+  background-color: aliceblue;
+  position: relative;
+  }
+  .info-card{
+    padding: 0 5px;
+}
+
+.info-container{
+    height: 100px;
+    padding:30px;
+    border: 1px solid;
+}
