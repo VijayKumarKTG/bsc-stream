@@ -157,18 +157,19 @@ console.log(streamId);
           <h1>Sablier Contract Interact</h1>
           <p>please required fields  for creating a streaming</p>
           <h5>Create stream</h5>
+          <br />
           {/* <label>Next Stream Id : {nextStreamId} </label> <br/>
           <label>Current Stream Id : {nextStreamId - 1} </label> <br/> */}
 
 
 
 
-          <label>Create Stream </label> 
+          {/* <label>Create Stream </label>  */}
         <div className="container">
         <form onSubmit={onSubmit_CreateStream}>
          <div className='row '>
          <div className=" col-sm">
-     <h6>Recepient Address</h6>
+        <h6>Recepient Address</h6>
       
       <input
        className="form-control"
