@@ -241,7 +241,7 @@ console.log(streamId);
   <DateTimePicker
     onChange={onChange_UnixStartTime_DateTime}
     value={DateTime}
-    format="dd-mm-yyyy"
+    format="dd-MM-yyyy"
   />
 
     </div>  
@@ -265,7 +265,7 @@ console.log(streamId);
    <DateTimePicker
       onChange={onChange_UnixStopTime_DateTime}
       value={DateTime}
-      format="dd-mm-yyyy"
+      format="dd-MM-yyyy"
     /> 
        
     </div>
