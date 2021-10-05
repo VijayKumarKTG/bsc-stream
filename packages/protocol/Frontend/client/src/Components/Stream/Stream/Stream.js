@@ -181,18 +181,19 @@ console.log(streamId);
           <h1>Sablier Contract Interact</h1>
           <p>please required fields  for creating a streaming</p>
           <h5>Create stream</h5>
+          <br />
           {/* <label>Next Stream Id : {nextStreamId} </label> <br/>
           <label>Current Stream Id : {nextStreamId - 1} </label> <br/> */}
 
 
 
 
-          <label>Create Stream </label> 
+          {/* <label>Create Stream </label>  */}
         <div className="container">
         <form onSubmit={onSubmit_CreateStream}>
          <div className='row '>
          <div className=" col-sm">
-     <h6>Recepient Address</h6>
+        <h6>Recepient Address</h6>
       
       <input
        className="form-control"
@@ -223,6 +224,28 @@ console.log(streamId);
       <br />
     </div>  
          </div>
+         <div className='row '>
+         <div className=" col-sm">
+        <h6>Amount</h6>
+      
+      <input
+       className="form-control"
+       value={deposit}
+       onChange={e => setDeposit(e.target.value)}
+       placeholder="Deposit"
+       type="number"
+       name="deposit"
+       required
+      />
+      
+    </div>  
+       <div className="form-group col-sm">
+      {/* <label htmlFor="formGroupExampleInput">Token Address</label> */}
+     
+      <br />
+    </div>  
+         </div>
+         <br />
    <div className ='row'>
    <div className="col-sm form-group">
       {/* <label htmlFor="formGroupExampleInput">Start Time (Unix Time)</label> */}
@@ -271,16 +294,16 @@ console.log(streamId);
     </div>
    </div>
    <br />
-   <div className="row">
+   {/* <div className="row">
    <div className="col-sm form-group">
-      {/* <label htmlFor="formGroupExampleInput">Stream ID</label> */}
+  
       <h6>Stream ID</h6>
       <input
        value={withdrawStreamId}
        onChange={e => setWithdrawStreamId(e.target.value)  }
        placeholder="Stream ID"
        type="number"
-      //  name="withdraw_streamId"
+     
        require
      
         className="form-control"
@@ -288,7 +311,7 @@ console.log(streamId);
       />
     </div>  
     <div className="col-sm form-group">
-      {/* <label htmlFor="formGroupExampleInput">Address of the person</label> */}
+    
       <h6>Address of the person</h6>
       <input
         type="text"
@@ -298,11 +321,10 @@ console.log(streamId);
         onChange={e => setAddressOf_Who(e.target.value)}
         placeholder="Address of the person"
       
-        // name="addressOf_Who"
         required
       />
     </div>
-   </div>
+   </div> */}
    <br />
     <button type="submit" className='button'>Create Stream</button>
          
