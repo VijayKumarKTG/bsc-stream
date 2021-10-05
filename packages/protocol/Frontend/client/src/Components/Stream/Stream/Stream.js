@@ -36,7 +36,7 @@ const [withdrawAmount, setWithdrawAmount] = useState("");
 
 // States created for react-datetime-picker below
 
-const [DateTime, setDateTime] = useState(null);
+const [DateTime, setDateTime] = useState(new Date());
 
 
 // Code below is to initialize and implement web3
@@ -268,6 +268,8 @@ console.log(streamId);
         name="unixStartTime"
         required
       />     
+
+
   <DateTimePicker
     onChange={onChange_UnixStartTime_DateTime}
     value={DateTime}
@@ -296,7 +298,7 @@ console.log(streamId);
    <DateTimePicker
       onChange={onChange_UnixStopTime_DateTime}
       value={DateTime}
-      format="dd-MM-yyyy hh:mm"
+      format="dd-MM-yyyy hh:mm:ss a"
     /> 
        
     </div>
