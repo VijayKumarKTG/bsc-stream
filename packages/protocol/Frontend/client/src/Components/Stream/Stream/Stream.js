@@ -112,6 +112,11 @@ const onSubmit_CreateStream = async (event) => {
   const AccountsArray = await web3.eth.getAccounts();
   const account = AccountsArray[0];
   var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
+
+  if(deposit%(unixStopTime-unixStartTime) != 0){
+    console.log("Please enter an Amount which is multiple of " + (unixStopTime-unixStartTime) );
+  }
+
   var _createStream = await contract.methods.createStream( recepientAddress,deposit,tokenAddress,unixStartTime, unixStopTime).send({from: account})  ;
   console.log(_createStream);
    
@@ -151,7 +156,9 @@ const onSubmitCancelStream = async (event) => {
 } 
 
 const onChange_UnixStartTime_DateTime = async (event) => {
-  var NewVar = parseInt((new Date(event).getTime() / 1000).toFixed(0));
+ // var NewVar = parseInt((new Date(event).getTime() / 1000).toFixed(0));
+  var NewVar = ((new Date(event).getTime() / 1000).toFixed(0));
+
   console.log(event);
   console.log(NewVar);
   setUnixStartTime(NewVar);
@@ -255,7 +262,7 @@ console.log(streamId);
         className="form-control"
         id="formGroupExampleInput"       
         value={unixStartTime}
-        // onChange={e => setUnixStartTime(e.target.value)}
+        onChange={e => setUnixStartTime(e.target.value)}
         //onClick={onClick_UnixStartTime_DateTime}
         placeholder="Start Time (Unix Time)"      
         name="unixStartTime"
@@ -264,7 +271,8 @@ console.log(streamId);
   <DateTimePicker
     onChange={onChange_UnixStartTime_DateTime}
     value={DateTime}
-    format="dd-MM-yyyy"
+    format="dd-MM-yyyy hh:mm:ss a"
+    closeClock={true}
   />
 
     </div>  
@@ -276,7 +284,7 @@ console.log(streamId);
         className="form-control"
         id="formGroupExampleInput"
         value={unixStopTime}
-       // onChange={e => setUnixStopTime(e.target.value)}
+       onChange={e => setUnixStopTime(e.target.value)}
        // onClick={onClick_UnixStopTime_DateTime}
         placeholder="Stop Time (Unix Time)"
        
@@ -288,7 +296,7 @@ console.log(streamId);
    <DateTimePicker
       onChange={onChange_UnixStopTime_DateTime}
       value={DateTime}
-      format="dd-MM-yyyy"
+      format="dd-MM-yyyy hh:mm"
     /> 
        
     </div>
