@@ -4,6 +4,7 @@ import SabilierContractIntstance from "../../../build/contracts/Sablier.json";
 import { useState } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Navbar from '../../Navbar/Navbar';
+import DateTimePicker from 'react-datetime-picker';
 import './Stream.css'
 const Stream = () => {
   // const { register, handleSubmit, formState: { errors } } = useForm();
@@ -32,6 +33,10 @@ const [withdrawStreamId, setWithdrawStreamId] = useState("");
 const [withdrawAmount, setWithdrawAmount] = useState("");
 
 
+
+// States created for react-datetime-picker below
+
+const [DateTime, setDateTime] = useState(null);
 
 
 // Code below is to initialize and implement web3
@@ -144,6 +149,25 @@ const onSubmitCancelStream = async (event) => {
   console.log(_cancelStream);
    
 } 
+
+const onChange_UnixStartTime_DateTime = async (event) => {
+  var NewVar = parseInt((new Date(event).getTime() / 1000).toFixed(0));
+  console.log(event);
+  console.log(NewVar);
+  setUnixStartTime(NewVar);
+  console.log(unixStartTime);   
+} 
+
+
+
+
+const onChange_UnixStopTime_DateTime = async (event) => {
+  var NewVar = parseInt((new Date(event).getTime() / 1000).toFixed(0))
+  console.log(NewVar);
+  setUnixStopTime(NewVar);
+  console.log(unixStopTime);
+   
+} 
    
 const LW = loadWeb3();
 
@@ -206,15 +230,20 @@ console.log(streamId);
       <input
         type="text"
         className="form-control"
-        id="formGroupExampleInput"
-        
+        id="formGroupExampleInput"       
         value={unixStartTime}
-        onChange={e => setUnixStartTime(e.target.value)}
-        placeholder="Start Time (Unix Time)"
-      
+        // onChange={e => setUnixStartTime(e.target.value)}
+        //onClick={onClick_UnixStartTime_DateTime}
+        placeholder="Start Time (Unix Time)"      
         name="unixStartTime"
         required
-      />
+      />     
+  <DateTimePicker
+    onChange={onChange_UnixStartTime_DateTime}
+    value={DateTime}
+    format="dd-mm-yyyy"
+  />
+
     </div>  
     <div className="col-sm form-group">
       {/* <label htmlFor="formGroupExampleInput">Stop Time (Unix Time)</label> */}
@@ -224,13 +253,21 @@ console.log(streamId);
         className="form-control"
         id="formGroupExampleInput"
         value={unixStopTime}
-        onChange={e => setUnixStopTime(e.target.value)}
+       // onChange={e => setUnixStopTime(e.target.value)}
+       // onClick={onClick_UnixStopTime_DateTime}
         placeholder="Stop Time (Unix Time)"
        
         name="unixStopTime"
         required
-        
-      />
+            />
+
+
+   <DateTimePicker
+      onChange={onChange_UnixStopTime_DateTime}
+      value={DateTime}
+      format="dd-mm-yyyy"
+    /> 
+       
     </div>
    </div>
    <br />
@@ -268,8 +305,9 @@ console.log(streamId);
    </div>
    <br />
     <button type="submit" className='button'>Create Stream</button>
-           
+         
            </form> 
+           
         </div>
         
    {/* <form onSubmit={onSubmit_CreateStream}>
