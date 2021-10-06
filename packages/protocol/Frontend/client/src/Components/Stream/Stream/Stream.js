@@ -112,11 +112,16 @@ const onSubmit_CreateStream = async (event) => {
   const AccountsArray = await web3.eth.getAccounts();
   const account = AccountsArray[0];
   var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
-
-  if(deposit%(unixStopTime-unixStartTime) != 0){
-    console.log("Please enter an Amount which is multiple of " + (unixStopTime-unixStartTime) );
+  
+  if(deposit == 0 ) {
+    console.log("Deposit Amount should not be 0" );
   }
-
+        
+  else if(deposit%(unixStopTime-unixStartTime) != 0){
+      console.log("Please enter an Amount which is multiple of " + (unixStopTime-unixStartTime) );
+  }
+    
+ 
   var _createStream = await contract.methods.createStream( recepientAddress,deposit,tokenAddress,unixStartTime, unixStopTime).send({from: account})  ;
   console.log(_createStream);
    
