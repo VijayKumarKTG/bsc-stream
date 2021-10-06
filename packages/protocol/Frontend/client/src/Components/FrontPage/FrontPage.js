@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTwitter,faMedium, faTelegram,faLinkedin } from '@fortawesome/free-brands-svg-icons';
+//import {faTwitter,faMedium, faTelegram,faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import './Frontpage.css'
 const FrontPage = () => {
     return (
@@ -14,7 +14,7 @@ const FrontPage = () => {
           <button type="button" className='dashboard'>Dashboard</button>
           </Link>
         
-          <h6 className='pt-3'><b>Follow Us: </b> <FontAwesomeIcon className='twitter me-2 mt-2' size="2x" icon={faTwitter} />  <FontAwesomeIcon className='me-2' size="2x"  icon={faLinkedin} />  <FontAwesomeIcon  size="2x" className='me-2'  icon={faMedium} />    <FontAwesomeIcon size="2x"  className='me-2' icon={faTelegram} /></h6>
+       {/*    <h6 className='pt-3'><b>Follow Us: </b> <FontAwesomeIcon className='twitter me-2 mt-2' size="2x" icon={faTwitter} />  <FontAwesomeIcon className='me-2' size="2x"  icon={faLinkedin} />  <FontAwesomeIcon  size="2x" className='me-2'  icon={faMedium} />    <FontAwesomeIcon size="2x"  className='me-2' icon={faTelegram} /></h6> */}
         </div>
         <div className="col-md-6">
             {/* <img src={chair} alt="" className="img-fluid"/> */}
