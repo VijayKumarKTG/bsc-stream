@@ -18,3 +18,13 @@
         border-radius: 10px;
       color: white;
   }
+
+  .background-img {
+  
+    position:relative;
+
+    background-image: url('../../images/bg.png');
+   
+    /* background-size: cover; */
+   
+}
