@@ -94,20 +94,20 @@ const Dashboard = () => {
            </div>
         </div>
     </main>
-           <Link to='/stream'><button>Stream</button></Link>
-           <div>
-               2nd Part
-               <ul>   
-                   {/* {stateStreamArray.map( (item) => {
-                           <div>   
-                               Helloo
-                           </div>            
-                          
-                          })}  */}
-                          
-                </ul>
-           </div>
+
+          <div className="row d-flex align-items-center  ">
+        <div  className="col-md-8 offset-md-1">
+            <h6><b>Dashboard</b></h6>
         </div>
+        <div className="col-md-2">
+        <Link to='/stream'><button className='button'>Stream</button></Link>
+        </div>
+          </div>
+         
+
+    
+           </div>
+        
     );
 };
 
