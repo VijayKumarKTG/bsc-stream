@@ -8,6 +8,9 @@ import SabilierContractIntstance from "../../build/contracts/Sablier.json";
 import Stream from '../Stream/Stream/Stream';
 
 
+
+
+
 const Dashboard = () => {
 
 
@@ -61,6 +64,7 @@ const Dashboard = () => {
 
 
 
+
     return (
         <div>
             <Navbar></Navbar>
@@ -94,20 +98,20 @@ const Dashboard = () => {
            </div>
         </div>
     </main>
-
-          <div className="row d-flex align-items-center  ">
-        <div  className="col-md-8 offset-md-1">
-            <h6><b>Dashboard</b></h6>
-        </div>
-        <div className="col-md-2">
-        <Link to='/stream'><button className='button'>Stream</button></Link>
-        </div>
-          </div>
-         
-
-    
+           <Link to='/stream'><button>Stream</button></Link>
+           <div>
+               2nd Part
+               <ul>   
+                   {/* {stateStreamArray.map( (item) => {
+                           <div>   
+                               Helloo
+                           </div>            
+                          
+                          })}  */}
+                          
+                </ul>
            </div>
-        
+        </div>
     );
 };
 
