@@ -1,12 +1,75 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './Dashboard.css';
+
 import withdraw from '../../images/withdraw.png'
 import details from '../../images/details.png'
 import options from '../../images/options.png'
 import history from '../../images/history.png'
+
+import Web3 from 'web3';
+import SabilierContractIntstance from "../../build/contracts/Sablier.json";
+import Stream from '../Stream/Stream/Stream';
+
+
+
+
+
 const Dashboard = () => {
+
+
+    const StreamArray = [];
+    const _id = 100001;
+    var [currentStreamID, setcurrentStreamID] = useState(0);
+    var [stateStreamArray,setStateStreamArray]= useState();
+    
+    
+    const setUpCurrentStreamID = async () => {
+    const web3 = new Web3(window.ethereum);
+    var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
+    const NextStream = await contract.methods.nextStreamId().call();
+    setcurrentStreamID(NextStream -1) ;
+    }
+    
+    setUpCurrentStreamID();
+    console.log(currentStreamID);
+    
+    
+    const GetStreamInfo = async (_id_inside) => {
+        const web3 = new Web3(window.ethereum);
+        var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
+        const _getStream = await contract.methods.getStream(_id_inside).call() ;
+        //console.log(_getStream);
+    
+        const _temp_Element = {};
+        _temp_Element.to = _getStream.recipient;
+        _temp_Element.value = _getStream.deposit;
+        _temp_Element.start_time = _getStream.startTime;
+        _temp_Element.stop_time = _getStream.stopTime;
+    
+        StreamArray.push(_temp_Element);
+                    
+      } 
+    
+    const getEveryStreamLoop = async () => {
+        
+        for (var i=_id; i <= currentStreamID ; i++ ){
+             GetStreamInfo(i);
+        }
+    
+       console.log(StreamArray);
+      
+         
+      } 
+    
+    getEveryStreamLoop();  
+    
+
+
+
+
     return (
  
             <div    >
@@ -49,6 +112,7 @@ const Dashboard = () => {
            </div>
         </div>
     </main>
+<<<<<<< HEAD
           <div className="row d-flex align-items-center  ">
         <div  className="col-md-8 offset-md-1">
             <h6><b>Dashboard</b></h6>
@@ -58,6 +122,20 @@ const Dashboard = () => {
         </div>
           </div>
          
+=======
+           <Link to='/stream'><button>Stream</button></Link>
+           <div>
+               2nd Part
+               <ul>   
+                   {/* {stateStreamArray.map( (item) => {
+                           <div>   
+                               Helloo
+                           </div>            
+                          
+                          })}  */}
+                          
+                </ul>
+>>>>>>> 0dcb0a6456f9218bba5be69d288bdf26ab1766a0
            </div>
         </div>
     
