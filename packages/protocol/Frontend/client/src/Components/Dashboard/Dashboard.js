@@ -1,8 +1,69 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
-import './Dashboard.css'
+import './Dashboard.css';
+import Web3 from 'web3';
+import SabilierContractIntstance from "../../build/contracts/Sablier.json";
+import Stream from '../Stream/Stream/Stream';
+
+
+
+
+
 const Dashboard = () => {
+
+
+    const StreamArray = [];
+    const _id = 100001;
+    var [currentStreamID, setcurrentStreamID] = useState(0);
+    var [stateStreamArray,setStateStreamArray]= useState();
+    
+    
+    const setUpCurrentStreamID = async () => {
+    const web3 = new Web3(window.ethereum);
+    var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
+    const NextStream = await contract.methods.nextStreamId().call();
+    setcurrentStreamID(NextStream -1) ;
+    }
+    
+    setUpCurrentStreamID();
+    console.log(currentStreamID);
+    
+    
+    const GetStreamInfo = async (_id_inside) => {
+        const web3 = new Web3(window.ethereum);
+        var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
+        const _getStream = await contract.methods.getStream(_id_inside).call() ;
+        //console.log(_getStream);
+    
+        const _temp_Element = {};
+        _temp_Element.to = _getStream.recipient;
+        _temp_Element.value = _getStream.deposit;
+        _temp_Element.start_time = _getStream.startTime;
+        _temp_Element.stop_time = _getStream.stopTime;
+    
+        StreamArray.push(_temp_Element);
+                    
+      } 
+    
+    const getEveryStreamLoop = async () => {
+        
+        for (var i=_id; i <= currentStreamID ; i++ ){
+             GetStreamInfo(i);
+        }
+    
+       console.log(StreamArray);
+      
+         
+      } 
+    
+    getEveryStreamLoop();  
+    
+
+
+
+
     return (
         <div>
             <Navbar></Navbar>
@@ -38,7 +99,16 @@ const Dashboard = () => {
     </main>
            <Link to='/stream'><button>Stream</button></Link>
            <div>
-                2nd part
+               2nd Part
+               <ul>   
+                   {/* {stateStreamArray.map( (item) => {
+                           <div>   
+                               Helloo
+                           </div>            
+                          
+                          })}  */}
+                          
+                </ul>
            </div>
         </div>
     );
