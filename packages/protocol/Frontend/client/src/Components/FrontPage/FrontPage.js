@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Frontpage.css'
 const FrontPage = () => {
     return (
-        <main style={{height:'500px'}} className="row d-flex align-items-center">
+        <main style={{height:'525px'}} className="row d-flex align-items-center">
         <div className="col-md-4 offset-md-1">
             <h2 style={{color: '#3A4256'}}>The real-time finance<br/>protocol for real assets</h2>
             <p className="text-secondary">Bridge the gap between real-life assets and liquid assets with Pandora’s open finance protocol.</p>

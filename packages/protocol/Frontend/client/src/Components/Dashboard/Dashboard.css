@@ -1,7 +1,10 @@
+.background{
+ background-color:aliceblue;
+}
 .header-container{
   
   margin: 2%;
-  background-color: aliceblue;
+  background-color:#FFFFFF ;
   position: relative;
   }
   .info-card{
@@ -9,7 +12,9 @@
 }
 
 .info-container{
-    height: 100px;
+    height: 120px;
     padding:30px;
-    border: 1px solid;
+    border: 0px solid;
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px #0000000F;
 }
