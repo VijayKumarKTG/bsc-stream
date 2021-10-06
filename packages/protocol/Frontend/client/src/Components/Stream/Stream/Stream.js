@@ -228,30 +228,10 @@ console.log(streamId);
         name="tokenAddress"
         required
       />
-      <br />
-    </div>  
-         </div>
-         <div className='row '>
-         <div className=" col-sm">
-        <h6>Amount</h6>
-      
-      <input
-       className="form-control"
-       value={deposit}
-       onChange={e => setDeposit(e.target.value)}
-       placeholder="Deposit"
-       type="number"
-       name="deposit"
-       required
-      />
-      
-    </div>  
-       <div className="form-group col-sm">
-      {/* <label htmlFor="formGroupExampleInput">Token Address</label> */}
      
-      <br />
     </div>  
          </div>
+        
          <br />
    <div className ='row'>
    <div className="col-sm form-group">
@@ -304,6 +284,27 @@ console.log(streamId);
     </div>
    </div>
    <br />
+   <div className='row '>
+         <div className=" col-sm">
+        <h6>Amount</h6>
+      
+      <input
+       className="form-control"
+       value={deposit}
+       onChange={e => setDeposit(e.target.value)}
+       placeholder="Deposit"
+       type="number"
+       name="deposit"
+       required
+      />
+      
+    </div>  
+       <div className="form-group col-sm">
+      {/* <label htmlFor="formGroupExampleInput">Token Address</label> */}
+     
+      <br />
+    </div>  
+         </div>
    {/* <div className="row">
    <div className="col-sm form-group">
   

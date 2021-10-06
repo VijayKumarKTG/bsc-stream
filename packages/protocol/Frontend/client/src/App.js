@@ -18,7 +18,7 @@ function App() {
  
 
   return (
-    <div className="">
+    <div className="background">
       <Router>
       <Switch>
           <Route path="/stream">
