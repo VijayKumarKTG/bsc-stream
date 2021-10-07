@@ -9,7 +9,7 @@ import './Stream.css'
 const Stream = () => {
   // const { register, handleSubmit, formState: { errors } } = useForm();
   // const onSubmit = data => console.log(data);
-    var [nextStreamId, setnextStreamId] = useState(0);
+ var [nextStreamId, setnextStreamId] = useState(0);
  var [data, setData] = useState(0);
 
 
@@ -43,59 +43,41 @@ const [DateTime, setDateTime] = useState(new Date());
 
 async function loadWeb3(){
 
-window.ethereum.enable();
+
 console.log(window.ethereum);
-console.log(window.ethereum.isConnected());
+//console.log(window.ethereum.isConnected());
 
 const provider = await detectEthereumProvider();
-
 console.log(provider);
-
-
 if (provider) {
-  startApp(provider); // Initialize your app
- 
-} else {
-  console.log('Please install MetaMask!');
-}
-
-function startApp(provider) {
-  // If the provider returned by detectEthereumProvider is not the same as
-  // window.ethereum, something is overwriting it, perhaps another wallet.
   if (provider !== window.ethereum) {
+    alert('Do you have multiple wallets installed?');
     console.error('Do you have multiple wallets installed?');
+    }
+  else {
+    window.ethereum.enable();
+    const web3 = new Web3(window.ethereum);
+    console.log(web3.eth.currentProvider);
+    const AccountsArray = await web3.eth.getAccounts();
+    const account = AccountsArray[0];
 
-  }
-  // Access the decentralized web!
-}
-
-
-
-const web3 = new Web3(window.ethereum);
-
-console.log(web3.eth.currentProvider)
-
-  
-const AccountsArray = await web3.eth.getAccounts();
-const account = AccountsArray[0];
- 
   
 // 0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3 contract id
+   var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
+   const NextId = await contract.methods.nextStreamId().call();
+   setnextStreamId( nextStreamId = NextId);
 
-  
-
-
-var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
-const NextId = await contract.methods.nextStreamId().call();
-setnextStreamId( nextStreamId = NextId);
-
-
-
+  }  
+      // Access the decentralized web!
+      // Initialize your app
+         } 
+ else {
+     alert('Please install MetaMask!');
+     console.log('Please install MetaMask!');
+    }
 
 
  }
-
-
 
  const onSubmitGetStreamInfo = async (event) => {
   event.preventDefault();
@@ -196,9 +178,6 @@ console.log(streamId);
           <br />
           {/* <label>Next Stream Id : {nextStreamId} </label> <br/>
           <label>Current Stream Id : {nextStreamId - 1} </label> <br/> */}
-
-
-
 
           {/* <label>Create Stream </label>  */}
         <div className="container">

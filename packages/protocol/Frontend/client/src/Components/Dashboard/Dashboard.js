@@ -6,8 +6,7 @@ import './Dashboard.css';
 import Web3 from 'web3';
 import SabilierContractIntstance from "../../build/contracts/Sablier.json";
 import Stream from '../Stream/Stream/Stream';
-
-
+import detectEthereumProvider from '@metamask/detect-provider';
 
 
 
@@ -18,18 +17,23 @@ const Dashboard = () => {
     const _id = 100001;
     var [currentStreamID, setcurrentStreamID] = useState(0);
     var [stateStreamArray,setStateStreamArray]= useState();
+
+ const providerCheck = async () => { 
+
+    const provider = await detectEthereumProvider();
     
+    if ( provider != null) {     
+           if(window.ethereum.isConnected()){
+
+               const setUpCurrentStreamID = async () => {
+               const web3 = new Web3(window.ethereum);
+               var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
+               const NextStream = await contract.methods.nextStreamId().call();
+               setcurrentStreamID(NextStream -1) ;
+                                     }
     
-    const setUpCurrentStreamID = async () => {
-    const web3 = new Web3(window.ethereum);
-    var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
-    const NextStream = await contract.methods.nextStreamId().call();
-    setcurrentStreamID(NextStream -1) ;
-    }
-    
-    setUpCurrentStreamID();
-    console.log(currentStreamID);
-    
+               setUpCurrentStreamID();
+               console.log(currentStreamID);    
     
     const GetStreamInfo = async (_id_inside) => {
         const web3 = new Web3(window.ethereum);
@@ -60,9 +64,13 @@ const Dashboard = () => {
     
     getEveryStreamLoop();  
     
+    }  // This is the end of the window.ethereum.isConnected() if check
 
+   } 
 
+}  // This is the End of The providerCheck() 
 
+providerCheck();
 
 
     return (
