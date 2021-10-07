@@ -11,7 +11,16 @@ const Navbar = () => {
     <div>
     <nav className="navbar-border navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-            <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'8rem'}} src={image} alt="" /></a><span className="sr-only"></span></NavLink>
+            <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a class="navbar-brand" href="#">
+      <img
+        src={image}
+        class="me-2"
+        height="20"
+        alt=""
+        loading="lazy"
+      />
+     
+    </a></NavLink>
             </div>
 
   <div className="container-fluid">
@@ -28,7 +37,7 @@ const Navbar = () => {
       <ul className="navbar-nav  ms-auto me-5 mb-2 mb-lg-0">
        
     
-      <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'0.7rem'}} src={logo1} alt="" /></a>Home<span className="sr-only"></span></NavLink>
+      <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a className="navbar-brand"><img style={{width:'0.7rem'}} src={logo1} alt="" /></a >Home<span className="sr-only"></span></NavLink>
     
       </ul>
       <ul className="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
