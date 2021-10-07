@@ -16,14 +16,18 @@ const Dashboard = () => {
     const StreamArray = [];
     const _id = 100001;
     var [currentStreamID, setcurrentStreamID] = useState(0);
-    var [stateStreamArray,setStateStreamArray]= useState();
+    var [stateStreamArray,setStateStreamArray]= useState([]);
 
  const providerCheck = async () => { 
 
     const provider = await detectEthereumProvider();
+
+    const web3 = new Web3(window.ethereum);
+    const AccountsArray = await web3.eth.getAccounts();
+    const account = AccountsArray[0];
     
     if ( provider != null) {     
-           if(window.ethereum.isConnected()){
+     if(window.ethereum.isConnected()){
 
                const setUpCurrentStreamID = async () => {
                const web3 = new Web3(window.ethereum);
@@ -35,7 +39,7 @@ const Dashboard = () => {
                setUpCurrentStreamID();
                console.log(currentStreamID);    
     
-    const GetStreamInfo = async (_id_inside) => {
+     const GetStreamInfo = async (_id_inside) => {
         const web3 = new Web3(window.ethereum);
         var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
         const _getStream = await contract.methods.getStream(_id_inside).call() ;
@@ -46,7 +50,30 @@ const Dashboard = () => {
         _temp_Element.value = _getStream.deposit;
         _temp_Element.start_time = _getStream.startTime;
         _temp_Element.stop_time = _getStream.stopTime;
-    
+        _temp_Element.ratePerSecond = _getStream.ratePerSecond;
+        
+        if( ( (_getStream.stopTime - ( Date.now() / 1000).toFixed(0)) > 0) ) {
+            _temp_Element.streaming = "Streaming";
+        }
+          else {
+            _temp_Element.streaming = "Not Streaming";
+               }
+        
+         _temp_Element.in_or_out = "NA";
+        
+         if (_getStream.recipient == account) {
+            _temp_Element.in_or_out = "Incoming";
+         }
+
+         else if (_getStream.sender == account ){
+            _temp_Element.in_or_out = "Outgoing";
+         }
+
+
+       // _temp_Element.streaming = _getStream.streaming;
+       
+
+            
         StreamArray.push(_temp_Element);
                     
       } 
@@ -56,10 +83,8 @@ const Dashboard = () => {
         for (var i=_id; i <= currentStreamID ; i++ ){
              GetStreamInfo(i);
         }
-    
-       console.log(StreamArray);
-      
-         
+       
+       console.log(StreamArray);              
       } 
     
     getEveryStreamLoop();  
@@ -69,7 +94,7 @@ const Dashboard = () => {
    } 
 
 }  // This is the End of The providerCheck() 
-
+console.log(Date.now());
 providerCheck();
 
 
