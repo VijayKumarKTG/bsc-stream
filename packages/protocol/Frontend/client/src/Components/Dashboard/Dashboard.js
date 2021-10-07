@@ -8,6 +8,9 @@ import SabilierContractIntstance from "../../build/contracts/Sablier.json";
 import Stream from '../Stream/Stream/Stream';
 
 
+
+
+
 const Dashboard = () => {
 
 
@@ -57,6 +60,7 @@ const Dashboard = () => {
     
     getEveryStreamLoop();  
     
+
 
 
 
@@ -128,7 +132,7 @@ const Dashboard = () => {
         
     
            </div>
-        
+       
     );
 };
 

@@ -5,8 +5,36 @@ import image from '../../images/Group 5458.png';
 import logo1 from '../../images/collection.svg';
 import logo2 from '../../images/idea (5).svg';
 import logo3 from '../../images/trending.svg';
+import detectEthereumProvider from '@metamask/detect-provider';
 
-const Navbar = () => {
+
+const onClickConnect = async () => {        
+        
+        const provider = await detectEthereumProvider();
+        console.log(provider);
+        if (provider) {
+          if (provider !== window.ethereum) {
+            alert('Do you have multiple wallets installed?');
+            console.error('Do you have multiple wallets installed?');
+            }
+          else {
+            window.ethereum.enable();
+          }  
+              // Access the decentralized web!
+              // Initialize your app
+                 } 
+         else {
+             alert('Please install MetaMask!');
+             console.log('Please install MetaMask!');
+            }
+             
+   
+   
+};
+
+const Navbar = () => { 
+  
+
   return (
     <div>
     <nav className="navbar-border navbar navbar-expand-lg navbar-light bg-light">
@@ -41,7 +69,8 @@ const Navbar = () => {
        <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'0.7rem'}} src={logo3} alt="" /></a>About<span className="sr-only"></span></NavLink>
       
        </ul>
-       <button type="button" className='wallet'>Connect Wallet</button>
+       
+       <button type="button" className='wallet' onClick={onClickConnect} >Connect Wallet</button>
     </div>
   
   </div>
