@@ -23,7 +23,7 @@ const Dashboard = () => {
     const provider = await detectEthereumProvider();
     
     if ( provider != null) {     
-           if(window.ethereum.isConnected()){
+     if(window.ethereum.isConnected()){
 
                const setUpCurrentStreamID = async () => {
                const web3 = new Web3(window.ethereum);
@@ -35,7 +35,7 @@ const Dashboard = () => {
                setUpCurrentStreamID();
                console.log(currentStreamID);    
     
-    const GetStreamInfo = async (_id_inside) => {
+     const GetStreamInfo = async (_id_inside) => {
         const web3 = new Web3(window.ethereum);
         var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
         const _getStream = await contract.methods.getStream(_id_inside).call() ;
@@ -46,7 +46,8 @@ const Dashboard = () => {
         _temp_Element.value = _getStream.deposit;
         _temp_Element.start_time = _getStream.startTime;
         _temp_Element.stop_time = _getStream.stopTime;
-    
+        _temp_Element.ratePerSecond = _getStream.ratePerSecond;
+            
         StreamArray.push(_temp_Element);
                     
       } 
