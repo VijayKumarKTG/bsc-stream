@@ -70,7 +70,7 @@ const Navbar = () => {
       </ul>
       <ul className="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
     
-      <NavLink exact activeClassName="active" to="/dashboard" className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'0.7rem'}} src={logo2} alt="" /></a>Dashboard<span className="sr-only"></span></NavLink>
+      <NavLink exact activeClassName="active" to="/dashboard"  onClick={onClickConnect} className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'0.7rem'}} src={logo2} alt="" /></a>Dashboard<span className="sr-only"></span></NavLink>
       
       </ul>
       <ul className="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
