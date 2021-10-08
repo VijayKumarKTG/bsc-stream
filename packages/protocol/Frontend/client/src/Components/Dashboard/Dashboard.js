@@ -21,7 +21,7 @@ const Dashboard = () => {
     const provider = await detectEthereumProvider();
     
     if ( provider != null) {     
-        
+
         const web3 = new Web3(window.ethereum);
         const AccountsArray = await web3.eth.getAccounts();
         const account = AccountsArray[0];
@@ -46,6 +46,7 @@ const Dashboard = () => {
         //console.log(_getStream);
     
         const _temp_Element = {};
+        _temp_Element.streamId = _id_inside;
         _temp_Element.to = _getStream.recipient;
         _temp_Element.value = _getStream.deposit;
         _temp_Element.start_time = _getStream.startTime;
@@ -78,7 +79,7 @@ const Dashboard = () => {
 
             
         StreamArray.push(_temp_Element);
-        //setStateStreamArray(stateStreamArray => [...stateStreamArray,_temp_Element] )
+       // setStateStreamArray(stateStreamArray => [...stateStreamArray,_temp_Element] )
         
 
                     
@@ -102,7 +103,7 @@ const Dashboard = () => {
 }  // This is the End of The providerCheck() 
 
 providerCheck();
-
+console.log(StreamArray);
 
     return (
         <div>
@@ -166,7 +167,7 @@ providerCheck();
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>{currentStreamID}</td>
+      <td>{}</td>
       <td>Otto</td>
       <td>@mdo</td>
     </tr>
@@ -174,6 +175,9 @@ providerCheck();
     
   </tbody>
 </table>
+{StreamArray.map((user) => (
+        <div className="user">{user}</div>
+      ))}
           </div>
          
         
