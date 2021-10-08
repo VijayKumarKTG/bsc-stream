@@ -15,6 +15,7 @@ const Dashboard = () => {
     const _id = 100001;
     var [currentStreamID, setcurrentStreamID] = useState(0);
     const [stateStreamArray,setStateStreamArray]= useState([]);
+    
    
 
  const providerCheck = async () => {
@@ -176,14 +177,13 @@ console.log(StreamArray);
     
   </tbody>
 </table>
-{StreamArray.map((user) => (
-        <div className="user">{user}</div>
-      ))}
+
           </div>
          
         
     
            </div>
+           
        
     );
 };
