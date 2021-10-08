@@ -17,8 +17,28 @@ import image1 from '../../images/banner.png'
 
 
 import detectEthereumProvider from '@metamask/detect-provider';
+import InfoCard from './InfoCard';
 
+const infosData = [
+  {
+      title: 'Opening Hours',
+      description: 'We are open 7 days',
 
+      background: 'primary'
+  },
+  {
+      title: 'Visit Our Location',
+      description: 'Brooklyn, NY 10003 USA',
+   
+      background: 'dark'
+  },
+  {
+      title: 'Call us now',
+      description: '+15697854124',
+   
+      background: 'primary'
+  }
+]
 
 
 const Dashboard = () => {
@@ -60,7 +80,7 @@ const Dashboard = () => {
         _temp_Element.start_time = _getStream.startTime;
         _temp_Element.stop_time = _getStream.stopTime;
     
-        StreamArray.push(_temp_Element);
+        StreamArray.concat(_temp_Element);
             
       } 
     
@@ -134,7 +154,10 @@ providerCheck();
         </div>
           </div>
           <div className='header-container'>
-          <table class="table">
+          {
+                    infosData.map(info => <InfoCard info={info} key={info.title}></InfoCard>)
+                }
+          {/* <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -144,17 +167,17 @@ providerCheck();
     </tr>
   </thead>
   <tbody>
-  {stateStreamArray && stateStreamArray.map((stateStream)=>{
+  {infosData.map((info )=>{
         <tr>
         <th scope="row">1</th>
-        <td>{stateStream.values}</td>
+        <td>{info.description}</td>
         <td>Otto</td>
         <td>@mdo</td>
       </tr>
 })}  
     
-  </tbody>
-</table>
+  </tbody> */}
+{/* </table> */}
           </div>
          
         
