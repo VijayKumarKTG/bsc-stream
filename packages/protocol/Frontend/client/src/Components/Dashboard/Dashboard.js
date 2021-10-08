@@ -11,22 +11,22 @@ import detectEthereumProvider from '@metamask/detect-provider';
 
 
 const Dashboard = () => {
-
-
     const StreamArray = [];
     const _id = 100001;
     var [currentStreamID, setcurrentStreamID] = useState(0);
-    var [stateStreamArray,setStateStreamArray]= useState([]);
+    const [stateStreamArray,setStateStreamArray]= useState([]);
+   
 
- const providerCheck = async () => { 
-
+ const providerCheck = async () => {
     const provider = await detectEthereumProvider();
-
-    const web3 = new Web3(window.ethereum);
-    const AccountsArray = await web3.eth.getAccounts();
-    const account = AccountsArray[0];
     
     if ( provider != null) {     
+        
+        const web3 = new Web3(window.ethereum);
+        const AccountsArray = await web3.eth.getAccounts();
+        const account = AccountsArray[0];
+        
+
      if(window.ethereum.isConnected()){
 
                const setUpCurrentStreamID = async () => {
@@ -59,7 +59,7 @@ const Dashboard = () => {
             _temp_Element.streaming = "Not Streaming";
                }
         
-         _temp_Element.in_or_out = "NA";
+        _temp_Element.in_or_out = "NA";
         
          if (_getStream.recipient == account) {
             _temp_Element.in_or_out = "Incoming";
@@ -68,13 +68,19 @@ const Dashboard = () => {
          else if (_getStream.sender == account ){
             _temp_Element.in_or_out = "Outgoing";
          }
+         
+         _temp_Element.progress = "NA";
 
+         _temp_Element.progress =  (   (  ( ( (Date.now() / 1000).toFixed(0) ) - _getStream.startTime ) * _getStream.ratePerSecond ) / _getStream.deposit );
 
        // _temp_Element.streaming = _getStream.streaming;
        
 
             
         StreamArray.push(_temp_Element);
+        //setStateStreamArray(stateStreamArray => [...stateStreamArray,_temp_Element] )
+        
+
                     
       } 
     
@@ -84,7 +90,7 @@ const Dashboard = () => {
              GetStreamInfo(i);
         }
        
-       console.log(StreamArray);              
+       //console.log(StreamArray);              
       } 
     
     getEveryStreamLoop();  
@@ -94,7 +100,7 @@ const Dashboard = () => {
    } 
 
 }  // This is the End of The providerCheck() 
-console.log(Date.now());
+
 providerCheck();
 
 
@@ -142,7 +148,8 @@ providerCheck();
           </div>
           <div className='header-container'>
           <table class="table">
-  <thead>
+              
+  <thead>      
     <tr>
       <th scope="col">#</th>
       <th scope="col">First</th>
@@ -157,6 +164,13 @@ providerCheck();
       <td>Otto</td>
       <td>@mdo</td>
     </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>{currentStreamID}</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    
     
   </tbody>
 </table>
