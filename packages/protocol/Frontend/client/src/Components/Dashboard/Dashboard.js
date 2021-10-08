@@ -3,22 +3,55 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './Dashboard.css';
+
+import withdraw from '../../images/Group 5549.svg'
+import details from '../../images/Group 5552.svg'
+import options from '../../images/Group 5550.svg'
+import history from '../../images/Group 5551.svg'
+
 import Web3 from 'web3';
 import SabilierContractIntstance from "../../build/contracts/Sablier.json";
 import Stream from '../Stream/Stream/Stream';
-import detectEthereumProvider from '@metamask/detect-provider';
 
+import image1 from '../../images/banner.png'
+
+
+import detectEthereumProvider from '@metamask/detect-provider';
+import InfoCard from './InfoCard';
+
+const infosData = [
+  {
+      title: 'Opening Hours',
+      description: 'We are open 7 days',
+
+      background: 'primary'
+  },
+  {
+      title: 'Visit Our Location',
+      description: 'Brooklyn, NY 10003 USA',
+   
+      background: 'dark'
+  },
+  {
+      title: 'Call us now',
+      description: '+15697854124',
+   
+      background: 'primary'
+  }
+]
 
 
 const Dashboard = () => {
     const StreamArray = [];
     const _id = 100001;
+
     var [currentStreamID, setcurrentStreamID] = useState(0);
     const [stateStreamArray,setStateStreamArray]= useState([]);
    
 
  const providerCheck = async () => {
     const provider = await detectEthereumProvider();
+
     
     if ( provider != null) {     
 
@@ -44,6 +77,17 @@ const Dashboard = () => {
         var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
         const _getStream = await contract.methods.getStream(_id_inside).call() ;
         //console.log(_getStream);
+<<<<<<< HEAD
+    
+        const _temp_Element = {};
+        _temp_Element.to = _getStream.recipient;
+        _temp_Element.value = _getStream.deposit;
+        _temp_Element.start_time = _getStream.startTime;
+        _temp_Element.stop_time = _getStream.stopTime;
+    
+        StreamArray.concat(_temp_Element);
+            
+=======
       
         if(  (_getStream.recipient == account ) || (_getStream.sender == account ) ) {
                     const _temp_Element = {};
@@ -84,6 +128,7 @@ const Dashboard = () => {
         
                 }
                     
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
       } 
     
     const getEveryStreamLoop = async () => {
@@ -92,7 +137,13 @@ const Dashboard = () => {
              GetStreamInfo(i);
         }
        
+<<<<<<< HEAD
+       console.log(StreamArray);
+      // setStateStreamArray(StreamArray)
+         
+=======
        //console.log(StreamArray);              
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
       } 
     
     getEveryStreamLoop();  
@@ -104,37 +155,46 @@ const Dashboard = () => {
 }  // This is the End of The providerCheck() 
 
 providerCheck();
+<<<<<<< HEAD
+=======
 console.log(StreamArray);
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
 
     return (
-        <div>
+ 
+            <div  >
             <Navbar></Navbar>
-            <main style={{height:'300px'}} className="row d-flex align-items-center header-container">
-        <div className="col-md-7 offset-md-1">
-            {/* <h2 style={{color: '#3A4256'}}>The real-time finance<br/>protocol for real assets</h2>
-            <p className="text-secondary">Bridge the gap between real-life assets and liquid assets with Pandora’s open finance protocol.</p>
-          <Link to='/dashboard'>
-          <button type="button" className='dashboard'>Dashboard</button>
-          </Link> */}
+           <div className=''>
+           <main style={{height:'300px'}} className="row d-flex align-items-center   header-container">
+        <div className="col-md-7 offset-md-1 ">
+          
+          <img className='' src={image1} alt=""  />
         
         
         </div>
         <div className="col-md-3">
-            {/* <img src={chair} alt="" className="img-fluid"/> */}
+           
            <div className="row d-flex  ">
             <div className="col-md-5 m-2  offset-md-1 info-container">
-                <p>Withdraw</p>
+                <img className='ms-3' style={{height:'40px'}} src={withdraw} alt="" />
+                <p><b>Withdraw</b></p>
             </div>
             <div className="col-md-5 m-2  info-container">
-                <p>Details</p>
+            <img className='ms-2' style={{height:'40px'}} src={details} alt="" />
+              
+                <p><b>Details</b></p>
             </div>
            </div>
            <div className="row d-flex ">
             <div className="col-md-5 offset-md-1 m-2  info-container">
-                <p>Option</p>
+            <img className='ms-2' style={{height:'40px'}} src={options} alt="" />
+       
+                <p><b>Options</b></p>
             </div>
             <div className="col-md-5 info-container m-2 ">
-                <p>History</p>
+            <img className='ms-2' style={{height:'40px'}} src={history} alt="" />
+            
+                <p><b>History</b></p>
             </div>
            </div>
         </div>
@@ -149,9 +209,17 @@ console.log(StreamArray);
         </div>
           </div>
           <div className='header-container'>
+<<<<<<< HEAD
+          {
+                    infosData.map(info => <InfoCard info={info} key={info.title}></InfoCard>)
+                }
+          {/* <table class="table">
+  <thead>
+=======
           <table class="table">
               
   <thead>      
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
     <tr>
       <th scope="col">#</th>
       <th scope="col">First</th>
@@ -160,6 +228,19 @@ console.log(StreamArray);
     </tr>
   </thead>
   <tbody>
+<<<<<<< HEAD
+  {infosData.map((info )=>{
+        <tr>
+        <th scope="row">1</th>
+        <td>{info.description}</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+})}  
+    
+  </tbody> */}
+{/* </table> */}
+=======
     <tr>
       <th scope="row">1</th>
       <td>Mark</td>
@@ -179,12 +260,14 @@ console.log(StreamArray);
 {StreamArray.map((user) => (
         <div className="user">{user}</div>
       ))}
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
           </div>
          
         
     
            </div>
-       
+        </div>
+    
     );
 };
 
