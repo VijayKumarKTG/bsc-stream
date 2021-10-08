@@ -42,21 +42,25 @@ const infosData = [
 
 
 const Dashboard = () => {
-
-
     const StreamArray = [];
     const _id = 100001;
 
     var [currentStreamID, setcurrentStreamID] = useState(0);
-    var [stateStreamArray,setStateStreamArray]= useState();
+    const [stateStreamArray,setStateStreamArray]= useState([]);
+   
 
- const providerCheck = async () => { 
-
+ const providerCheck = async () => {
     const provider = await detectEthereumProvider();
 
     
     if ( provider != null) {     
-           if(window.ethereum.isConnected()){
+
+        const web3 = new Web3(window.ethereum);
+        const AccountsArray = await web3.eth.getAccounts();
+        const account = AccountsArray[0];
+        
+
+     if(window.ethereum.isConnected()){
 
                const setUpCurrentStreamID = async () => {
                const web3 = new Web3(window.ethereum);
@@ -68,11 +72,12 @@ const Dashboard = () => {
                setUpCurrentStreamID();
                console.log(currentStreamID);    
     
-    const GetStreamInfo = async (_id_inside) => {
+     const GetStreamInfo = async (_id_inside) => {
         const web3 = new Web3(window.ethereum);
         var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
         const _getStream = await contract.methods.getStream(_id_inside).call() ;
         //console.log(_getStream);
+<<<<<<< HEAD
     
         const _temp_Element = {};
         _temp_Element.to = _getStream.recipient;
@@ -82,6 +87,48 @@ const Dashboard = () => {
     
         StreamArray.concat(_temp_Element);
             
+=======
+      
+        if(  (_getStream.recipient == account ) || (_getStream.sender == account ) ) {
+                    const _temp_Element = {};
+                    _temp_Element.streamId = _id_inside;
+                    _temp_Element.to = _getStream.recipient;
+                    _temp_Element.value = _getStream.deposit;
+                    _temp_Element.start_time = _getStream.startTime;
+                    _temp_Element.stop_time = _getStream.stopTime;
+                    _temp_Element.ratePerSecond = _getStream.ratePerSecond;
+                    
+                    if( ( (_getStream.stopTime - ( Date.now() / 1000).toFixed(0)) > 0) ) {
+                        _temp_Element.streaming = "Streaming";
+                    }
+                    else {
+                        _temp_Element.streaming = "Not Streaming";
+                        }
+                    
+                    _temp_Element.in_or_out = "NA";
+                    
+                    if (_getStream.recipient == account) {
+                        _temp_Element.in_or_out = "Incoming";
+                    }
+
+                    else if (_getStream.sender == account ){
+                        _temp_Element.in_or_out = "Outgoing";
+                    }
+                    
+                    _temp_Element.progress = "NA";
+
+                    _temp_Element.progress =  (   (  ( ( (Date.now() / 1000).toFixed(0) ) - _getStream.startTime ) * _getStream.ratePerSecond ) / _getStream.deposit );
+
+                // _temp_Element.streaming = _getStream.streaming;
+                
+
+                        
+                    StreamArray.push(_temp_Element);
+                // setStateStreamArray(stateStreamArray => [...stateStreamArray,_temp_Element] )
+        
+                }
+                    
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
       } 
     
     const getEveryStreamLoop = async () => {
@@ -90,9 +137,13 @@ const Dashboard = () => {
              GetStreamInfo(i);
         }
        
+<<<<<<< HEAD
        console.log(StreamArray);
       // setStateStreamArray(StreamArray)
          
+=======
+       //console.log(StreamArray);              
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
       } 
     
     getEveryStreamLoop();  
@@ -104,6 +155,10 @@ const Dashboard = () => {
 }  // This is the End of The providerCheck() 
 
 providerCheck();
+<<<<<<< HEAD
+=======
+console.log(StreamArray);
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
 
     return (
  
@@ -154,11 +209,17 @@ providerCheck();
         </div>
           </div>
           <div className='header-container'>
+<<<<<<< HEAD
           {
                     infosData.map(info => <InfoCard info={info} key={info.title}></InfoCard>)
                 }
           {/* <table class="table">
   <thead>
+=======
+          <table class="table">
+              
+  <thead>      
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
     <tr>
       <th scope="col">#</th>
       <th scope="col">First</th>
@@ -167,6 +228,7 @@ providerCheck();
     </tr>
   </thead>
   <tbody>
+<<<<<<< HEAD
   {infosData.map((info )=>{
         <tr>
         <th scope="row">1</th>
@@ -178,6 +240,27 @@ providerCheck();
     
   </tbody> */}
 {/* </table> */}
+=======
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>{}</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+{StreamArray.map((user) => (
+        <div className="user">{user}</div>
+      ))}
+>>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
           </div>
          
         
