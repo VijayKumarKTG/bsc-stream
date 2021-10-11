@@ -77,7 +77,7 @@ const Dashboard = () => {
         var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
         const _getStream = await contract.methods.getStream(_id_inside).call() ;
         //console.log(_getStream);
-<<<<<<< HEAD
+
     
         const _temp_Element = {};
         _temp_Element.to = _getStream.recipient;
@@ -87,7 +87,7 @@ const Dashboard = () => {
     
         StreamArray.concat(_temp_Element);
             
-=======
+
       
         if(  (_getStream.recipient == account ) || (_getStream.sender == account ) ) {
                     const _temp_Element = {};
@@ -128,7 +128,7 @@ const Dashboard = () => {
         
                 }
                     
->>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
+
       } 
     
     const getEveryStreamLoop = async () => {
@@ -137,13 +137,13 @@ const Dashboard = () => {
              GetStreamInfo(i);
         }
        
-<<<<<<< HEAD
+
        console.log(StreamArray);
       // setStateStreamArray(StreamArray)
          
-=======
+
        //console.log(StreamArray);              
->>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
+
       } 
     
     getEveryStreamLoop();  
@@ -155,10 +155,9 @@ const Dashboard = () => {
 }  // This is the End of The providerCheck() 
 
 providerCheck();
-<<<<<<< HEAD
-=======
+
 console.log(StreamArray);
->>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
+
 
     return (
  
@@ -209,17 +208,17 @@ console.log(StreamArray);
         </div>
           </div>
           <div className='header-container'>
-<<<<<<< HEAD
+
           {
                     infosData.map(info => <InfoCard info={info} key={info.title}></InfoCard>)
                 }
           {/* <table class="table">
   <thead>
-=======
+
           <table class="table">
               
   <thead>      
->>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
+
     <tr>
       <th scope="col">#</th>
       <th scope="col">First</th>
@@ -228,7 +227,7 @@ console.log(StreamArray);
     </tr>
   </thead>
   <tbody>
-<<<<<<< HEAD
+
   {infosData.map((info )=>{
         <tr>
         <th scope="row">1</th>
@@ -240,7 +239,7 @@ console.log(StreamArray);
     
   </tbody> */}
 {/* </table> */}
-=======
+{/* 
     <tr>
       <th scope="row">1</th>
       <td>Mark</td>
@@ -256,11 +255,11 @@ console.log(StreamArray);
     
     
   </tbody>
-</table>
+</table> */}
 {StreamArray.map((user) => (
         <div className="user">{user}</div>
       ))}
->>>>>>> 919eb1c813ae956effbc85824ae2f4f722b377e1
+
           </div>
          
         
