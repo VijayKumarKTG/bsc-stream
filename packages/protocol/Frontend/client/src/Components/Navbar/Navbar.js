@@ -7,40 +7,58 @@ import logo2 from '../../images/idea (5).svg';
 import logo3 from '../../images/trending.svg';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
+import { useState, useEffect } from 'react';
 
-var CurrentAccount = []; 
 
 const onClickConnect = async () => {        
         
-        const provider = await detectEthereumProvider();
-        console.log(provider);
-        if (provider) {
-          if (provider !== window.ethereum) {
-            alert('Do you have multiple wallets installed?');
-            console.error('Do you have multiple wallets installed?');
-            }
-          else {
-            window.ethereum.enable();
+  const provider = await detectEthereumProvider();
+  console.log(provider);
+  if (provider) {
+    if (provider !== window.ethereum) {
+      alert('Do you have multiple wallets installed?');
+      console.error('Do you have multiple wallets installed?');
+      }
+    else {
+
+      window.ethereum.enable();             
+               
+    }  
+        // Access the decentralized web!
+        // Initialize your app
+           } 
+   else {
+       alert('Please install MetaMask!');
+       console.log('Please install MetaMask!');
+      }
+       
+
+
+}; 
+
+
+
+const Navbar = () => { 
+
+  const [currentAccount, setCurrentAccount] = useState("");
+
+  const LoadAccount = async () => {  
+
+        if(window.ethereum.isConnected ){ 
+          
 
             const web3 = new Web3(window.ethereum);
             const AccountsArray = await web3.eth.getAccounts();
-            CurrentAccount = AccountsArray[0];
-            
-          }  
-              // Access the decentralized web!
-              // Initialize your app
-                 } 
-         else {
-             alert('Please install MetaMask!');
-             console.log('Please install MetaMask!');
-            }
-             
-   
-   
-};
+            setCurrentAccount(AccountsArray);
+                                          }       
+          
+          }
 
-const Navbar = () => { 
-  
+   useEffect(() => {
+            LoadAccount();
+          }, []);
+ 
+console.log("The Current Account is " + currentAccount);
 
   return (
     <div>
