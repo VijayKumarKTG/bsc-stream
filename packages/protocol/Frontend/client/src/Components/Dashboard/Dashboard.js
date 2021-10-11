@@ -79,6 +79,8 @@ const Dashboard = () => {
         var contract = new web3.eth.Contract(SabilierContractIntstance.abi, "0x8582f3B4CFd18b8FA66A352AE25F6D2DC2A359e3");
         const _getStream = await contract.methods.getStream(_id_inside).call() ;
         //console.log(_getStream);
+
+
       
         if(  (_getStream.recipient == account ) || (_getStream.sender == account ) ) {
                     const _temp_Element = {};
@@ -119,6 +121,8 @@ const Dashboard = () => {
         
                 }
                     
+
+
       } 
     
     const getEveryStreamLoop = async () => {
@@ -127,7 +131,9 @@ const Dashboard = () => {
              GetStreamInfo(i);
         }
        
+
        //console.log(StreamArray);              
+
       } 
     
     getEveryStreamLoop();  
@@ -139,7 +145,10 @@ const Dashboard = () => {
 }  // This is the End of The providerCheck() 
 
 providerCheck();
-//console.log(StreamArray);
+
+
+console.log(StreamArray);
+
 
     return (
  
@@ -190,10 +199,10 @@ providerCheck();
         </div>
           </div>
           <div className='header-container'>
+
           {
                     infosData.map(item => <InfoCard info={item} ></InfoCard>)
                 }
-         
 
 
           </div>
