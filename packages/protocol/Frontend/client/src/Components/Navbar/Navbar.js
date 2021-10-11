@@ -6,7 +6,9 @@ import logo1 from '../../images/collection.svg';
 import logo2 from '../../images/idea (5).svg';
 import logo3 from '../../images/trending.svg';
 import detectEthereumProvider from '@metamask/detect-provider';
+import Web3 from 'web3';
 
+var CurrentAccount = []; 
 
 const onClickConnect = async () => {        
         
@@ -19,6 +21,11 @@ const onClickConnect = async () => {
             }
           else {
             window.ethereum.enable();
+
+            const web3 = new Web3(window.ethereum);
+            const AccountsArray = await web3.eth.getAccounts();
+            CurrentAccount = AccountsArray[0];
+            
           }  
               // Access the decentralized web!
               // Initialize your app
@@ -39,7 +46,16 @@ const Navbar = () => {
     <div>
     <nav className="navbar-border navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-            <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'8rem'}} src={image} alt="" /></a><span className="sr-only"></span></NavLink>
+            <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a class="navbar-brand" href="#">
+      <img
+        src={image}
+        class="me-2"
+        height="20"
+        alt=""
+        loading="lazy"
+      />
+     
+    </a></NavLink>
             </div>
 
   <div className="container-fluid">
@@ -56,12 +72,12 @@ const Navbar = () => {
       <ul className="navbar-nav  ms-auto me-5 mb-2 mb-lg-0">
        
     
-      <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'0.7rem'}} src={logo1} alt="" /></a>Home<span className="sr-only"></span></NavLink>
+      <NavLink exact activeClassName="active" to="/" className="nav-link navigation-item px-3"><a className="navbar-brand"><img style={{width:'0.7rem'}} src={logo1} alt="" /></a >Home<span className="sr-only"></span></NavLink>
     
       </ul>
       <ul className="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
     
-      <NavLink exact activeClassName="active" to="/dashboard" className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'0.7rem'}} src={logo2} alt="" /></a>Dashboard<span className="sr-only"></span></NavLink>
+      <NavLink exact activeClassName="active" to="/dashboard"  onClick={onClickConnect} className="nav-link navigation-item px-3"><a className="navbar-brand" ><img style={{width:'0.7rem'}} src={logo2} alt="" /></a>Dashboard<span className="sr-only"></span></NavLink>
       
       </ul>
       <ul className="navbar-nav ms-auto me-5 mb-2 mb-lg-0">

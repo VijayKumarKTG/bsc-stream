@@ -3,23 +3,57 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './Dashboard.css';
+
+import withdraw from '../../images/Group 5549.svg'
+import details from '../../images/Group 5552.svg'
+import options from '../../images/Group 5550.svg'
+import history from '../../images/Group 5551.svg'
+
 import Web3 from 'web3';
 import SabilierContractIntstance from "../../build/contracts/Sablier.json";
 import Stream from '../Stream/Stream/Stream';
-import detectEthereumProvider from '@metamask/detect-provider';
 
+import image1 from '../../images/banner.png'
+
+
+import detectEthereumProvider from '@metamask/detect-provider';
+import InfoCard from './InfoCard';
+
+const infosData = [
+  {
+      title: 'Opening Hours',
+      description: 'We are open 7 days',
+
+      background: 'primary'
+  },
+  {
+      title: 'Visit Our Location',
+      description: 'Brooklyn, NY 10003 USA',
+   
+      background: 'dark'
+  },
+  {
+      title: 'Call us now',
+      description: '+15697854124',
+   
+      background: 'primary'
+  }
+]
 
 
 const Dashboard = () => {
-    const StreamArray = [];
+    
     const _id = 100001;
+
     var [currentStreamID, setcurrentStreamID] = useState(0);
     const [stateStreamArray,setStateStreamArray]= useState([]);
+    const StreamArray = [];
     
    
 
  const providerCheck = async () => {
     const provider = await detectEthereumProvider();
+
     
     if ( provider != null) {     
 
@@ -105,37 +139,43 @@ const Dashboard = () => {
 }  // This is the End of The providerCheck() 
 
 providerCheck();
-console.log(StreamArray);
+//console.log(StreamArray);
 
     return (
-        <div>
+ 
+            <div  >
             <Navbar></Navbar>
-            <main style={{height:'300px'}} className="row d-flex align-items-center header-container">
-        <div className="col-md-7 offset-md-1">
-            {/* <h2 style={{color: '#3A4256'}}>The real-time finance<br/>protocol for real assets</h2>
-            <p className="text-secondary">Bridge the gap between real-life assets and liquid assets with Pandora’s open finance protocol.</p>
-          <Link to='/dashboard'>
-          <button type="button" className='dashboard'>Dashboard</button>
-          </Link> */}
+           <div className=''>
+           <main style={{height:'300px'}} className="row d-flex align-items-center   header-container">
+        <div className="col-md-7 offset-md-1 ">
+          
+          <img className='' src={image1} alt=""  />
         
         
         </div>
         <div className="col-md-3">
-            {/* <img src={chair} alt="" className="img-fluid"/> */}
+           
            <div className="row d-flex  ">
             <div className="col-md-5 m-2  offset-md-1 info-container">
-                <p>Withdraw</p>
+                <img className='ms-3' style={{height:'40px'}} src={withdraw} alt="" />
+                <p><b>Withdraw</b></p>
             </div>
             <div className="col-md-5 m-2  info-container">
-                <p>Details</p>
+            <img className='ms-2' style={{height:'40px'}} src={details} alt="" />
+              
+                <p><b>Details</b></p>
             </div>
            </div>
            <div className="row d-flex ">
             <div className="col-md-5 offset-md-1 m-2  info-container">
-                <p>Option</p>
+            <img className='ms-2' style={{height:'40px'}} src={options} alt="" />
+       
+                <p><b>Options</b></p>
             </div>
             <div className="col-md-5 info-container m-2 ">
-                <p>History</p>
+            <img className='ms-2' style={{height:'40px'}} src={history} alt="" />
+            
+                <p><b>History</b></p>
             </div>
            </div>
         </div>
@@ -150,6 +190,11 @@ console.log(StreamArray);
         </div>
           </div>
           <div className='header-container'>
+          {
+                    infosData.map(item => <InfoCard info={item} ></InfoCard>)
+                }
+          {/* <table class="table">
+  <thead>
           <table class="table">
               
   <thead>      
@@ -161,30 +206,29 @@ console.log(StreamArray);
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>{}</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
+<<<<<<< HEAD
+  {infosData.map((info )=>{
+        <tr>
+        <th scope="row">1</th>
+        <td>{info.description}</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+})}  
     
-    
-  </tbody>
-</table>
+  </tbody> */}
+{/* </table> */}
+
 
           </div>
          
         
     
            </div>
-           
-       
+
+        </div>
+    
+
     );
 };
 
