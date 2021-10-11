@@ -42,11 +42,13 @@ const infosData = [
 
 
 const Dashboard = () => {
-    const StreamArray = [];
+    
     const _id = 100001;
 
     var [currentStreamID, setcurrentStreamID] = useState(0);
     const [stateStreamArray,setStateStreamArray]= useState([]);
+    const StreamArray = [];
+    
    
 
  const providerCheck = async () => {
@@ -78,15 +80,6 @@ const Dashboard = () => {
         const _getStream = await contract.methods.getStream(_id_inside).call() ;
         //console.log(_getStream);
 
-    
-        const _temp_Element = {};
-        _temp_Element.to = _getStream.recipient;
-        _temp_Element.value = _getStream.deposit;
-        _temp_Element.start_time = _getStream.startTime;
-        _temp_Element.stop_time = _getStream.stopTime;
-    
-        StreamArray.concat(_temp_Element);
-            
 
       
         if(  (_getStream.recipient == account ) || (_getStream.sender == account ) ) {
@@ -129,6 +122,7 @@ const Dashboard = () => {
                 }
                     
 
+
       } 
     
     const getEveryStreamLoop = async () => {
@@ -137,10 +131,6 @@ const Dashboard = () => {
              GetStreamInfo(i);
         }
        
-
-       console.log(StreamArray);
-      // setStateStreamArray(StreamArray)
-         
 
        //console.log(StreamArray);              
 
@@ -155,6 +145,7 @@ const Dashboard = () => {
 }  // This is the End of The providerCheck() 
 
 providerCheck();
+
 
 console.log(StreamArray);
 
@@ -210,63 +201,19 @@ console.log(StreamArray);
           <div className='header-container'>
 
           {
-                    infosData.map(info => <InfoCard info={info} key={info.title}></InfoCard>)
+                    infosData.map(item => <InfoCard info={item} ></InfoCard>)
                 }
-          {/* <table class="table">
-  <thead>
 
-          <table class="table">
-              
-  <thead>      
-
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-
-  {infosData.map((info )=>{
-        <tr>
-        <th scope="row">1</th>
-        <td>{info.description}</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-})}  
-    
-  </tbody> */}
-{/* </table> */}
-{/* 
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>{}</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    
-    
-  </tbody>
-</table> */}
-{StreamArray.map((user) => (
-        <div className="user">{user}</div>
-      ))}
 
           </div>
          
         
     
            </div>
+
         </div>
     
+
     );
 };
 

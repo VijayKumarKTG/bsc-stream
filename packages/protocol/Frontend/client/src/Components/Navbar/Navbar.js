@@ -6,7 +6,9 @@ import logo1 from '../../images/collection.svg';
 import logo2 from '../../images/idea (5).svg';
 import logo3 from '../../images/trending.svg';
 import detectEthereumProvider from '@metamask/detect-provider';
+import Web3 from 'web3';
 
+var CurrentAccount = []; 
 
 const onClickConnect = async () => {        
         
@@ -19,6 +21,11 @@ const onClickConnect = async () => {
             }
           else {
             window.ethereum.enable();
+
+            const web3 = new Web3(window.ethereum);
+            const AccountsArray = await web3.eth.getAccounts();
+            CurrentAccount = AccountsArray[0];
+            
           }  
               // Access the decentralized web!
               // Initialize your app

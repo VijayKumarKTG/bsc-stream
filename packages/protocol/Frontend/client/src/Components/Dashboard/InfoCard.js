@@ -4,6 +4,8 @@ import React from 'react';
 
 
 const InfoCard = ({ info }) => {
+    console.log("hellooasdoasd");
+    console.log(info);
     return (
         <div className="col-md-4 text-white info-card">
             <div className={`d-flex justify-content-center info-container info-${info.background}`}>
@@ -12,6 +14,7 @@ const InfoCard = ({ info }) => {
                 </div>
                 <div>
                     <h6 style={{color:'black'}}>{info.title}</h6>
+                    <h6 style={{color:'black'}}>{info.background}</h6>
                     <small>{info.description}</small>
                 </div>
             </div>
