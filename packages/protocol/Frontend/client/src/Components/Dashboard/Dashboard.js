@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './Dashboard.css';
@@ -50,7 +50,6 @@ const Dashboard = () => {
     const StreamArray = [];
     
    
-
  const providerCheck = async () => {
     const provider = await detectEthereumProvider();
 
@@ -132,7 +131,8 @@ const Dashboard = () => {
         }
        
 
-       //console.log(StreamArray);              
+       //console.log(StreamArray);    
+          
 
       } 
     
@@ -144,10 +144,18 @@ const Dashboard = () => {
 
 }  // This is the End of The providerCheck() 
 
+
+
+// useEffect(() => {
+//     providerCheck();
+//   }, []);
+
 providerCheck();
+console.log(StreamArray);   
 
 
-console.log(StreamArray);
+ 
+ 
 
 
     return (
