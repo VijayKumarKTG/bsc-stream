@@ -193,31 +193,7 @@ providerCheck();
           {
                     infosData.map(item => <InfoCard info={item} ></InfoCard>)
                 }
-          {/* <table class="table">
-  <thead>
-          <table class="table">
-              
-  <thead>      
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-<<<<<<< HEAD
-  {infosData.map((info )=>{
-        <tr>
-        <th scope="row">1</th>
-        <td>{info.description}</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-})}  
-    
-  </tbody> */}
-{/* </table> */}
+         
 
 
           </div>
