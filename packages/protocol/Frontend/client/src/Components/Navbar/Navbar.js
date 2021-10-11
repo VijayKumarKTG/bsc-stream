@@ -41,9 +41,12 @@ const onClickConnect = async () => {
 const Navbar = () => { 
 
   const [currentAccount, setCurrentAccount] = useState("");
+  
 
-  const LoadAccount = async () => {  
+const LoadAccount = async () => {  
+  const provider = await detectEthereumProvider();
 
+  if( provider != null ) {
         if(window.ethereum.isConnected ){ 
           
 
@@ -54,7 +57,9 @@ const Navbar = () => {
           
           }
 
-   useEffect(() => {
+        }
+          
+useEffect(() => {
             LoadAccount();
           }, []);
  
