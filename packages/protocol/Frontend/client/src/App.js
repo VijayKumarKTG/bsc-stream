@@ -19,8 +19,13 @@ function App() {
   };
 
   window.ethereum.on('accountsChanged', function (accounts) {
-    if (accounts[0].toLowerCase() !== account.toLocaleLowerCase()) {
+    if (
+      accounts[0] &&
+      accounts[0].toLocaleLowerCase() !== account.toLocaleLowerCase()
+    ) {
       changeAccount(accounts[0]);
+    } else {
+      changeAccount('');
     }
   });
 
