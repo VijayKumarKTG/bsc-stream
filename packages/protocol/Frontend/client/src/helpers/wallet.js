@@ -1,5 +1,9 @@
 import Web3 from 'web3';
+import { CONTRACT_ABI, CONTRACT_ADDRESS } from '../constants';
+
 let web3 = new Web3(Web3.givenProvider);
+let contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+let account;
 
 export const connectWallet = async () => {
   try {
@@ -8,7 +12,7 @@ export const connectWallet = async () => {
     } else {
       return { status: false };
     }
-    let account = await window.ethereum.request({
+    account = await window.ethereum.request({
       method: 'eth_requestAccounts',
     });
     account = account[0];
@@ -59,3 +63,48 @@ export const getTransactionConfirmation = (hash, type = '') => {
     return { success: false };
   }
 };
+
+/**
+ * 4. Create a stream with recipient, deposit,
+ * token address, start time, and stop time and
+ * return new stream id as number
+ * @param {address} recipient
+ * @param {number} deposit
+ * @param {address} address
+ * @param {unix time} startTime
+ * @param {unix time} stopTime
+ * @return {number}
+ */
+export const createStream = (
+  recipient,
+  deposit,
+  address,
+  startTime,
+  stopTime
+) => {
+  contract.methods
+    .createStream(recipient, deposit, address, startTime, stopTime)
+    .send({ from: account, gasPrice: 50000000000 })
+    .on('error', function (error, receipt) {
+      if (error) {
+        console.log('Create Stream Error: ');
+        console.log(error.message);
+      } else {
+        console.log('Create Stream: ');
+        console.log(receipt);
+      }
+    });
+};
+
+/**
+ * 5. Event Catcher for create stream
+ */
+contract.events.CreateStream({}, function (error, event) {
+  if (error) {
+    console.log('Event Error: ');
+    console.log(error.message);
+  } else {
+    console.log('Event: ');
+    console.log(event.returnValues);
+  }
+});

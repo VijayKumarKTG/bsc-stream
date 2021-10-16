@@ -6,14 +6,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AccountContext } from './context/AccountContext';
 
-function App() {
+function App({ history }) {
   const [account, setAccount] = useState('');
   const [chainId, setChainId] = useState('');
 
   useEffect(() => {
     const setChain = async () => {
       const chainID = await window.ethereum.request({ method: 'eth_chainId' });
-      console.log(chainID);
       if (chainID === '0x61' || chainID === '97') {
         setChainId(chainID);
       }
