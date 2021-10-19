@@ -4,7 +4,6 @@ import { useState } from 'react';
 //import SabilierContractIntstance from '../../../build/contracts/Sablier.json';
 //import detectEthereumProvider from '@metamask/detect-provider';
 //import DateTimePicker from 'react-datetime-picker';
-import Navbar from '../../Navbar/Navbar';
 import { createStream, withdrawFromStream } from '../../../helpers/wallet';
 import './Stream.css';
 
@@ -186,7 +185,6 @@ const Stream = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
       <header className='container'>
         <h1>Sablier Contract Interact</h1>
         <p>please required fields for creating a streaming</p>

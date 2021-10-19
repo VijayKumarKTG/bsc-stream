@@ -1,12 +1,13 @@
-import './App.css';
+import './App.less';
+import Navbar from './Components/Navbar/Navbar';
 import Home from './Components/Stream/Home/Home';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Stream from './Components/Stream/Stream/Stream';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AccountContext } from './context/AccountContext';
 
-function App({ history }) {
+function App() {
   const [account, setAccount] = useState('');
   const [chainId, setChainId] = useState('');
 
@@ -69,7 +70,7 @@ function App({ history }) {
   return (
     <AccountContext.Provider value={contextValue}>
       <div className='App-header'>
-        {chainId !== '0x61' && (
+        {/* {chainId !== '0x61' && (
           <div
             style={{
               position: 'absolute',
@@ -86,14 +87,15 @@ function App({ history }) {
               BSC Testnet
             </span>
           </div>
-        )}
+        )} */}
         <Router>
+          <Navbar/>
           <Switch>
             <Route path='/stream'>
               <Stream />
             </Route>
             <Route path='/dashboard'>
-              <Dashboard />
+              <Dashboard chainId={chainId} />
             </Route>
             <Route path='/'>
               <Home />

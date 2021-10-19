@@ -1,131 +1,158 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import './Navbar.css';
+import { Link,withRouter } from 'react-router-dom';
+import { Button, Tabs, Drawer } from 'antd';
+import { useState, useContext,useEffect } from 'react';
 import { AccountContext } from '../../context/AccountContext';
 import image from '../../images/Group 5458.png';
 import logo1 from '../../images/collection.svg';
 import logo2 from '../../images/idea (5).svg';
 import logo3 from '../../images/trending.svg';
-import detectEthereumProvider from '@metamask/detect-provider';
-import { useState, useContext } from 'react';
 import { connectWallet } from '../../helpers/wallet';
+import './Navbar.less';
 
-const onClickConnect = async () => {
-  const provider = await detectEthereumProvider();
-  console.log(provider);
-  if (provider) {
-    if (provider !== window.ethereum) {
-      alert('Do you have multiple wallets installed?');
-      console.error('Do you have multiple wallets installed?');
-    } else {
-      window.ethereum.enable();
-    }
-    // Access the decentralized web!
-    // Initialize your app
-  } else {
-    alert('Please install MetaMask!');
-    console.log('Please install MetaMask!');
-  }
+const { TabPane } = Tabs;
+const tabsAddress = {
+  1: '/',
+  2: '/dashboard',
+  3: '/about',
 };
 
-const Navbar = () => {
-  const [currentAccount, setCurrentAccount] = useState('');
-  const accountContext = useContext(AccountContext);
+const Navbar = ({history,location}) => {
+  const {account,changeAccount} = useContext(AccountContext);
+  const [activeKey, setActiveKey] = useState('1');
+  const [toggleMobileMenu, setToggleMobileMenu] = useState(false);
 
-  // const LoadAccount = async () => {
-  //   const provider = await detectEthereumProvider();
+  useEffect(() => {
+    if (location.pathname.includes('/about')) {
+      setActiveKey('3');
+    }else if (location.pathname.includes('/dashboard')) {
+      setActiveKey('2');
+    }else if (location.pathname.includes('/')) {
+      setActiveKey('1');
+    }
+  }, []);
 
-  //   if (provider != null) {
-  //     if (window.ethereum.isConnected) {
-  //       const web3 = new Web3(window.ethereum);
-  //       const AccountsArray = await web3.eth.getAccounts();
-  //       setCurrentAccount(AccountsArray);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   LoadAccount();
-  // }, []);
-
-  //console.log('The Current Account is ' + currentAccount);
+  const tabChanged = (key) => {
+    setActiveKey(key);
+    setToggleMobileMenu(false);
+    history.push(tabsAddress[key]);
+  };
 
   const onConnectWallet = async () => {
     let response = await connectWallet();
     if (response.status) {
-      accountContext.changeAccount(response.account);
+      changeAccount(response.account);
     } else {
       console.log('Something went wrong!');
     }
   };
 
+  const onClickToggleMobileMenu = () => setToggleMobileMenu(!toggleMobileMenu);
+
+  const navlist = (
+    <div
+      className='tabs-container'>
+      <Tabs
+        activeKey={activeKey}
+        onChange={tabChanged}
+        tabBarGutter={42}
+        animated={false}>
+        <TabPane
+          tab={
+            <span className='nav-item-text'>
+              <img src={logo1} alt='fire icon' />
+              Home
+            </span>
+          }
+          key='1'
+        />
+        <TabPane
+          tab={
+            <span className='nav-item-text'>
+              <img src={logo2} alt='fire icon' />
+              Dashboard
+            </span>
+          }
+          key='2'
+        />
+        <TabPane
+          tab={
+            <span className='nav-item-text'>
+              <img src={logo3} alt='fire icon' />
+              About
+            </span>
+          }
+          key='3'
+        />
+      </Tabs>
+      {!account ? (
+        <Button
+          className='wallet'
+          onClick={onConnectWallet}>
+          <span className='darkbg'>CONNECT WALLET</span>
+        </Button>
+      ):(
+        <div className="account" title={account}>{`${account.slice(0,15)}...`}</div>
+      )}
+    </div>
+  );
+  
   return (
     <div>
-      <nav className='navbar-border navbar navbar-expand-lg navbar-light bg-light'>
-        <div className='container-fluid'>
-          <NavLink
-            exact
-            activeClassName='active'
-            to='/'
-            className='nav-link navigation-item px-3'>
-            <a class='navbar-brand' href='#'>
-              <img src={image} class='me-2' height='20' alt='' loading='lazy' />
-            </a>
-          </NavLink>
-        </div>
-
-        <div className='container-fluid'>
-          <form className='d-flex search input-group w-auto'></form>
-
-          <div
-            className='collapse navbar-collapse'
-            id='navbarRightAlignExample'>
-            <ul className='navbar-nav  ms-auto me-5 mb-2 mb-lg-0'>
-              <NavLink
-                exact
-                activeClassName='active'
-                to='/'
-                className='nav-link navigation-item px-3'>
-                <a className='navbar-brand'>
-                  <img style={{ width: '0.7rem' }} src={logo1} alt='' />
-                </a>
-                Home<span className='sr-only'></span>
-              </NavLink>
-            </ul>
-            <ul className='navbar-nav ms-auto me-5 mb-2 mb-lg-0'>
-              <NavLink
-                exact
-                activeClassName='active'
-                to='/dashboard'
-                onClick={onClickConnect}
-                className='nav-link navigation-item px-3'>
-                <a className='navbar-brand'>
-                  <img style={{ width: '0.7rem' }} src={logo2} alt='' />
-                </a>
-                Dashboard<span className='sr-only'></span>
-              </NavLink>
-            </ul>
-            <ul className='navbar-nav ms-auto me-5 mb-2 mb-lg-0'>
-              <NavLink
-                exact
-                activeClassName='active'
-                to='/'
-                className='nav-link navigation-item px-3'>
-                <a className='navbar-brand'>
-                  <img style={{ width: '0.7rem' }} src={logo3} alt='' />
-                </a>
-                About<span className='sr-only'></span>
-              </NavLink>
-            </ul>
-
-            <button type='button' className='wallet' onClick={onConnectWallet}>
-              Connect Wallet
-            </button>
-          </div>
-        </div>
-      </nav>
+      <div className='nav-container'>
+          <Link to='/'>
+            <img
+              className='logo'
+              src={image}
+              alt='Pandora BSC Stream logo'
+            />
+          </Link>
+        {toggleMobileMenu ? (
+          <svg
+            onClick={onClickToggleMobileMenu}
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='#000000'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            className='feather feather-x menu'>
+            <line x1='18' y1='6' x2='6' y2='18'></line>
+            <line x1='6' y1='6' x2='18' y2='18'></line>
+          </svg>
+        ) : (
+          <svg
+            onClick={onClickToggleMobileMenu}
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='#000000'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            className='feather feather-menu menu'>
+            <line x1='3' y1='12' x2='21' y2='12'></line>
+            <line x1='3' y1='6' x2='21' y2='6'></line>
+            <line x1='3' y1='18' x2='21' y2='18'></line>
+          </svg>
+        )}
+        <div className=' desktop'>{navlist}</div>
+      </div>
+      <Drawer
+        placement='left'
+        closable={false}
+        className='navigation-container'
+        onClose={onClickToggleMobileMenu}
+        visible={toggleMobileMenu}>
+        {navlist}
+      </Drawer>
     </div>
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);
