@@ -4,7 +4,7 @@ import { useState } from 'react';
 //import SabilierContractIntstance from '../../../build/contracts/Sablier.json';
 //import detectEthereumProvider from '@metamask/detect-provider';
 //import DateTimePicker from 'react-datetime-picker';
-import { createStream, withdrawFromStream } from '../../../helpers/wallet';
+import { createStream, withdrawFromStream } from '../../helpers/wallet';
 import './Stream.css';
 
 const Stream = () => {

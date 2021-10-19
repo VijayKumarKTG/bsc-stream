@@ -1,11 +1,11 @@
 import './App.less';
 import Navbar from './Components/Navbar/Navbar';
-import Home from './Components/Stream/Home/Home';
 import Dashboard from './Components/Dashboard/Dashboard';
-import Stream from './Components/Stream/Stream/Stream';
+import Stream from './Components/Stream/Stream';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AccountContext } from './context/AccountContext';
+import HomePage from './Components/HomePage/HomePage';
 
 function App() {
   const [account, setAccount] = useState('');
@@ -98,7 +98,7 @@ function App() {
               <Dashboard chainId={chainId} />
             </Route>
             <Route path='/'>
-              <Home />
+              <HomePage />
             </Route>
           </Switch>
         </Router>
