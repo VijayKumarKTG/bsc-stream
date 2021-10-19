@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import Navbar from '../Navbar/Navbar';
 import './Dashboard.css';
 
 import withdraw from '../../images/Group 5549.svg';
@@ -191,7 +190,6 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
       <div className=''>
         <main
           style={{ height: '300px' }}
