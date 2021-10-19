@@ -1,7 +1,7 @@
 import React from 'react';
 import Web3 from 'web3';
 import SabilierContractIntstance from "../../../build/contracts/Sablier.json";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Navbar from '../../Navbar/Navbar';
 import DateTimePicker from 'react-datetime-picker';
