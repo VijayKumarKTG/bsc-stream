@@ -5,7 +5,7 @@ import { useState } from 'react';
 //import detectEthereumProvider from '@metamask/detect-provider';
 //import DateTimePicker from 'react-datetime-picker';
 import Navbar from '../../Navbar/Navbar';
-import { createStream } from '../../../helpers/wallet';
+import { createStream, withdrawFromStream } from '../../../helpers/wallet';
 import './Stream.css';
 
 const Stream = () => {
@@ -338,6 +338,9 @@ const Stream = () => {
             </button>
           </form>
         </div>
+        {/* <button onClick={() => withdrawFromStream(100052, 60)}>
+          Withdraw Cash
+        </button> */}
       </header>
     </div>
   );
