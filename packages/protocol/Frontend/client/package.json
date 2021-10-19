@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.4.16",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
@@ -25,6 +26,7 @@
     "chai-bignumber": "3.0.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.11.0",
+    "graphql": "^15.6.1",
     "install": "^0.13.0",
     "react": "^17.0.2",
     "react-datetime-picker": "^3.4.1",

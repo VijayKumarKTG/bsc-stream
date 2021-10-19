@@ -104,7 +104,40 @@ contract.events.CreateStream({}, function (error, event) {
     console.log('Event Error: ');
     console.log(error.message);
   } else {
+    window.location.replace('/dashboard');
     console.log('Event: ');
     console.log(event.returnValues);
+  }
+});
+
+/**
+ * 5. Withdraw balance from stream with stream id
+ * and will return a boolean value (true for success
+ *  and false for fail)
+ * @param {number} streamId
+ * @param {number} amount
+ * @returns {boolean}
+ */
+export const withdrawFromStream = async (streamId, amount) => {
+  try {
+    let receipt = await contract.methods
+      .withdrawFromStream(streamId, amount)
+      .send({ from: account, gasPrice: 50000000000 });
+    console.log('Withdraw Receipt: ');
+    console.log(receipt);
+  } catch (error) {
+    console.log('Withdraw Error: ');
+    console.log(error.message);
+  }
+  return true;
+};
+
+contract.events.WithdrawFromStream({}, (error, result) => {
+  if (error) {
+    console.log('Withdraw Event Error: ');
+    console.log(error);
+  } else {
+    console.log('Withdraw Event: ');
+    console.log(result);
   }
 });
