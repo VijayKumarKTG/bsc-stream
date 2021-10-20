@@ -1,7 +1,6 @@
 import './App.less';
 import Navbar from './Components/Navbar/Navbar';
 import Dashboard from './Components/Dashboard/Dashboard';
-import Stream from './Components/Stream/Stream';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AccountContext } from './context/AccountContext';
@@ -70,32 +69,11 @@ function App() {
   return (
     <AccountContext.Provider value={contextValue}>
       <div className='App-header'>
-        {/* {chainId !== '0x61' && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '0',
-              left: '0',
-              right: '0',
-              width: '100%',
-              zIndex: '10',
-            }}>
-            Please change your blockchain network to{' '}
-            <span
-              style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
-              onClick={changeChain}>
-              BSC Testnet
-            </span>
-          </div>
-        )} */}
         <Router>
-          <Navbar/>
+          <Navbar />
           <Switch>
-            <Route path='/stream'>
-              <Stream />
-            </Route>
             <Route path='/dashboard'>
-              <Dashboard chainId={chainId} />
+              <Dashboard chainId={chainId} changeChain={changeChain} />
             </Route>
             <Route path='/'>
               <HomePage />
