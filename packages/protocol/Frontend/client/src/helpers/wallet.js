@@ -91,11 +91,14 @@ export const createStream = async (
   account
 ) => {
   try {
+    deposit = web3.utils.toWei(deposit + '', 'ether');
+    console.log(deposit)
     const receipt = await contract.methods
       .createStream(recipient, deposit, address, startTime, stopTime)
       .send({ from: account, gasPrice: 50000000000 });
     return receipt.events.CreateStream.returnValues.streamId ? true : false;
   } catch (error) {
+    console.log(error);
     return false;
   }
 };
@@ -149,6 +152,7 @@ export const parseStreams = async (streams) => {
     let newStream = { ...stream };
     newStream.startTime = new Date(newStream.startTime * 1000);
     newStream.stopTime = new Date(newStream.stopTime * 1000);
+    newStream.senderBalance = results[i];
     newStream.progress = Math.round(
       ((newStream.deposit - results[i]) / newStream.deposit) * 100
     );

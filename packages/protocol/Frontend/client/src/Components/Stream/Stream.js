@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import { useState } from 'react';
 import './Stream.less';
 
-const Stream = ({ createStream, close }) => {
+const Stream = ({ createStream, close, account }) => {
   const [recipient, setRecepientAddress] = useState('');
   const [tokenAddress, setTokenAddress] = useState('');
   const [unixStartTime, setUnixStartTime] = useState('');
@@ -222,9 +222,6 @@ const Stream = ({ createStream, close }) => {
             </button>
           </form>
         </div>
-        {/* <button onClick={() => withdrawFromStream(100052, 60)}>
-          Withdraw Cash
-        </button> */}
       </header>
     </div>
   );
