@@ -1,6 +1,6 @@
 {
   "name": "app-frontend",
-  "homepage": "https://pandora-finance.github.io/BSC-Stream",
+  "homepage": "https://pandora-finance.github.io/BSC-Stream-UI-Web3js/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
