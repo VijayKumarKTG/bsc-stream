@@ -92,7 +92,6 @@ export const createStream = async (
 ) => {
   try {
     deposit = web3.utils.toWei(deposit + '', 'ether');
-    console.log(deposit)
     const receipt = await contract.methods
       .createStream(recipient, deposit, address, startTime, stopTime)
       .send({ from: account, gasPrice: 50000000000 });
@@ -114,6 +113,8 @@ export const createStream = async (
  */
 export const withdrawFromStream = async (streamId, amount, account) => {
   try {
+    amount = web3.utils.toWei(amount + '', 'ether');
+    console.log(amount);
     const receipt = await contract.methods
       .withdrawFromStream(streamId, amount)
       .send({ from: account, gasPrice: 50000000000 });
@@ -121,6 +122,7 @@ export const withdrawFromStream = async (streamId, amount, account) => {
       ? true
       : false;
   } catch (error) {
+    console.log(error);
     return false;
   }
 };

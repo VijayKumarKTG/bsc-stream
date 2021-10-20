@@ -350,8 +350,10 @@ const Dashboard = ({ chainId, changeChain }) => {
                                 withdrawHandler(
                                   stream.streamId,
                                   stream.progress === 100
-                                    ? stream.deposit
-                                    : stream.deposit - stream.senderBalance
+                                    ? Web3.utils.fromWei(stream.deposit)
+                                    : Number(
+                                        Web3.utils.fromWei(stream.deposit)
+                                      ) - stream.senderBalance
                                 )
                               }>
                               Withdraw
