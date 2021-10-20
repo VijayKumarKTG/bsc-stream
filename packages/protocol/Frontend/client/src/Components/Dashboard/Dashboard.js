@@ -18,6 +18,7 @@ import details from '../../images/Group 5552.svg';
 import options from '../../images/Group 5550.svg';
 import history from '../../images/Group 5551.svg';
 import image1 from '../../images/banner.png';
+import Web3 from 'web3';
 
 const Dashboard = ({ chainId, changeChain }) => {
   const [streams, setStreams] = useState([]);
@@ -303,7 +304,7 @@ const Dashboard = ({ chainId, changeChain }) => {
                           {stream.recipient.slice(0, 15)}...
                         </td>
                         <td className='value'>
-                          {stream.deposit} <span>PNDR</span>
+                          {Web3.utils.fromWei(stream.deposit)} <span>PNDR</span>
                         </td>
                         <td className='progressX'>
                           <Progress
@@ -346,7 +347,12 @@ const Dashboard = ({ chainId, changeChain }) => {
                           ) : (
                             <Button
                               onClick={() =>
-                                withdrawHandler(stream.streamId, stream.deposit)
+                                withdrawHandler(
+                                  stream.streamId,
+                                  stream.progress === 100
+                                    ? stream.deposit
+                                    : stream.deposit - stream.senderBalance
+                                )
                               }>
                               Withdraw
                             </Button>
@@ -368,7 +374,11 @@ const Dashboard = ({ chainId, changeChain }) => {
             onClose={onClose}
             visible={visible}
             key='createstream'>
-            <Stream createStream={createStreamHandler} close={onClose} />
+            <Stream
+              createStream={createStreamHandler}
+              close={onClose}
+              account={account}
+            />
           </Drawer>
         </div>
       ) : (
