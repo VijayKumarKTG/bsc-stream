@@ -280,9 +280,7 @@ const Dashboard = () => {
                 <td className='status'>
                   <span>Streaming</span>
                 </td>
-                <td className='dir-Status'>
-                  <span>Incoming</span>
-                </td>
+               
                 <td className='to'>13d117C3C9...</td>
                 <td className='value'>
                   210k <span>PNDR</span>
