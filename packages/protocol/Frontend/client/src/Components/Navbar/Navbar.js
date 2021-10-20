@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link,withRouter } from 'react-router-dom';
-import { Button, Tabs, Drawer,message } from 'antd';
-import { useState, useContext,useEffect } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { Tabs, Drawer, message } from 'antd';
+import { useState, useContext, useEffect } from 'react';
 import { AccountContext } from '../../context/AccountContext';
 import image from '../../images/Group 5458.png';
 import logo1 from '../../images/collection.svg';
@@ -17,17 +17,17 @@ const tabsAddress = {
   3: '/about',
 };
 
-const Navbar = ({history,location}) => {
-  const {account,changeAccount} = useContext(AccountContext);
+const Navbar = ({ history, location }) => {
+  const { account, changeAccount } = useContext(AccountContext);
   const [activeKey, setActiveKey] = useState('1');
   const [toggleMobileMenu, setToggleMobileMenu] = useState(false);
 
   useEffect(() => {
     if (location.pathname.includes('/about')) {
       setActiveKey('3');
-    }else if (location.pathname.includes('/dashboard')) {
+    } else if (location.pathname.includes('/dashboard')) {
       setActiveKey('2');
-    }else if (location.pathname.includes('/')) {
+    } else if (location.pathname.includes('/')) {
       setActiveKey('1');
     }
   }, []);
@@ -42,7 +42,7 @@ const Navbar = ({history,location}) => {
     let response = await connectWallet();
     if (response.status) {
       changeAccount(response.account);
-      message.success('Successfully connected!')
+      message.success('Successfully connected!');
     } else {
       message.error('Something went wrong!');
     }
@@ -51,8 +51,7 @@ const Navbar = ({history,location}) => {
   const onClickToggleMobileMenu = () => setToggleMobileMenu(!toggleMobileMenu);
 
   const navlist = (
-    <div
-      className='tabs-container'>
+    <div className='tabs-container'>
       <Tabs
         activeKey={activeKey}
         onChange={tabChanged}
@@ -87,26 +86,24 @@ const Navbar = ({history,location}) => {
         />
       </Tabs>
       {!account ? (
-        <Button
-          className='wallet'
-          onClick={onConnectWallet}>CONNECT WALLET
-        </Button>
-      ):(
-        <div className="account" title={account}>{`${account.slice(0,15)}...`}</div>
+        <button className='wallet' onClick={onConnectWallet}>
+          CONNECT WALLET
+        </button>
+      ) : (
+        <div className='account' title={account}>{`${account.slice(
+          0,
+          15
+        )}...`}</div>
       )}
     </div>
   );
-  
+
   return (
     <div>
       <div className='nav-container'>
-          <Link to='/'>
-            <img
-              className='logo'
-              src={image}
-              alt='Pandora BSC Stream logo'
-            />
-          </Link>
+        <Link to='/'>
+          <img className='logo' src={image} alt='Pandora BSC Stream logo' />
+        </Link>
         {toggleMobileMenu ? (
           <svg
             onClick={onClickToggleMobileMenu}

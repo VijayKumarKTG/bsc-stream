@@ -1,6 +1,7 @@
 import { Button, Input } from 'antd';
 import { useState, useEffect } from 'react';
 import './Stream.less';
+// import Select from 'react-select';
 
 const Stream = ({ createStream, close, account }) => {
   const [recipient, setRecepientAddress] = useState('');
@@ -19,8 +20,58 @@ const Stream = ({ createStream, close, account }) => {
   const [durationWeeks, setDurationWeeks] = useState(0);
   const [durationYears, setDurationYears] = useState(0);
 
+  // const options_Years = [
+  //   { value: 0, label: '0 Years' },
+  //   { value: 1, label: '1 Year' },
+  //   { value: 2, label: '2 Years' },
+  //   { value: 3, label: '3 Years' },
+  // ];
+  // const options_Weeks = [
+  //   { value: 0, label: '0 Weeks' },
+  //   { value: 1, label: '1 Week' },
+  //   { value: 2, label: '2 Weeks' },
+  //   { value: 3, label: '3 Weeks' },
+  //   { value: 4, label: '4 Weeks' },
+  //   { value: 5, label: '5 Weeks' },
+  //   { value: 6, label: '6 Weeks' },
+  //   { value: 7, label: '7 Weeks' },
+  //   { value: 8, label: '8 Weeks' },
+  // ];
+  // const options_Days = [
+  //   { value: 0, label: '0 Days' },
+  //   { value: 1, label: '1 Day' },
+  //   { value: 2, label: '2 Days' },
+  //   { value: 3, label: '3 Days' },
+  //   { value: 4, label: '4 Days' },
+  //   { value: 5, label: '5 Days' },
+  //   { value: 6, label: '6 Days' },
+  //   { value: 7, label: '7 Days' },
+  //   { value: 8, label: '8 Days' },
+  // ];
+  // const options_Hours = [
+  //   { value: 0, label: '0 Hours' },
+  //   { value: 1, label: '1 Hour' },
+  //   { value: 2, label: '2 Hours' },
+  //   { value: 3, label: '3 Hours' },
+  //   { value: 4, label: '4 Hours' },
+  //   { value: 5, label: '5 Hours' },
+  //   { value: 6, label: '6 Hours' },
+  //   { value: 7, label: '7 Hours' },
+  //   { value: 8, label: '8 Hours' },
+  // ];
+  // const options_Mins = [
+  //   { value: 0, label: '0 Minutes' },
+  //   { value: 1, label: '1 Minute' },
+  //   { value: 2, label: '2 Minutes' },
+  //   { value: 3, label: '3 Minutes' },
+  //   { value: 4, label: '4 Minutes' },
+  //   { value: 5, label: '5 Minutes' },
+  //   { value: 6, label: '6 Minutes' },
+  //   { value: 7, label: '7 Minutes' },
+  // ];
+  //var SelectedOption;
+
   useEffect(() => {
-    // console.log(durationYears);
     onUnixStopTimeChange();
   }, [
     durationMinutes,
@@ -44,19 +95,23 @@ const Stream = ({ createStream, close, account }) => {
   };
 
   const onUnixStopTimeChange = () => {
+    if (!unixStartTime) {
+      setStopTimeError('Please fill the start time first.');
+      return;
+    }
     let newTime =
       unixStartTime +
-      0 +
-      60 * durationMinutes +
-      3600 * durationHours +
-      86400 * durationDays +
-      604800 * durationWeeks +
-      31556926 * durationYears;
+      30 +
+      60 * Number(durationMinutes) +
+      3600 * Number(durationHours) +
+      86400 * Number(durationDays) +
+      604800 * Number(durationWeeks) +
+      31556926 * Number(durationYears);
 
     let currentTime = new Date().getTime();
     if (newTime <= currentTime / 1000) {
       setStopTimeError(
-        'Please set duration to at least 1 or more fields from above'
+        'You are choosing a duration which is less than your current machine time.'
       );
     } else if (newTime <= unixStartTime) {
       setStopTimeError(
@@ -65,7 +120,6 @@ const Stream = ({ createStream, close, account }) => {
     } else {
       setStopTimeError('');
       setUnixStopTime(newTime);
-      console.log(unixStartTime, newTime);
     }
   };
 
@@ -87,7 +141,7 @@ const Stream = ({ createStream, close, account }) => {
         setRecommendations(array);
       }
     } else {
-      setDepositError('Please fill unix start time and unix stop time first.');
+      setDepositError('Please fill unix start time and duration first.');
     }
   };
 
@@ -202,6 +256,42 @@ const Stream = ({ createStream, close, account }) => {
                     onChange={(e) => setDurationMinutes(Number(e.target.value))}
                     name='unixStopTime'
                   />
+
+                  {/* <Select
+                    value={SelectedOption}
+                    onChange={setDurationYears}
+                    options={options_Years}
+                    placeholder='Years'
+                    defaultValue={0}
+                  />
+                  <Select
+                    value={SelectedOption}
+                    onChange={setDurationWeeks}
+                    options={options_Weeks}
+                    placeholder='Weeks'
+                    defaultValue={0}
+                  />
+                  <Select
+                    value={SelectedOption}
+                    onChange={setDurationDays}
+                    options={options_Days}
+                    placeholder='Days'
+                    defaultValue={0}
+                  />
+                  <Select
+                    value={SelectedOption}
+                    onChange={setDurationHours}
+                    options={options_Hours}
+                    placeholder='Hours'
+                    defaultValue={0}
+                  />
+                  <Select
+                    value={SelectedOption}
+                    onChange={setDurationMinutes}
+                    options={options_Mins}
+                    placeholder='Minutes'
+                    defaultValue={0}
+                  /> */}
                 </div>
                 <div className='error'>{stopTimeError}</div>
               </div>
@@ -217,7 +307,6 @@ const Stream = ({ createStream, close, account }) => {
                     onDepositChange(
                       e.target.value === '' ? 0 : +e.target.value
                     );
-                    console.log(e.target.value);
                   }}
                   placeholder='Deposit'
                   type='number'
@@ -226,7 +315,6 @@ const Stream = ({ createStream, close, account }) => {
                 />
               </div>
               <div className='form-group col-sm'>
-                {/* <label htmlFor="formGroupExampleInput">Token Address</label>  */}
                 {recommendations.length ? (
                   <>
                     <p>Some recommended deposits you can try</p>

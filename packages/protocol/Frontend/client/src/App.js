@@ -1,10 +1,11 @@
-import './App.less';
-import Navbar from './Components/Navbar/Navbar';
-import Dashboard from './Components/Dashboard/Dashboard';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { message } from 'antd';
 import { AccountContext } from './context/AccountContext';
+import Navbar from './Components/Navbar/Navbar';
+import Dashboard from './Components/Dashboard/Dashboard';
 import HomePage from './Components/HomePage/HomePage';
+import './App.less';
 
 function App() {
   const [account, setAccount] = useState('');
@@ -41,7 +42,7 @@ function App() {
   });
 
   window.ethereum.on('chainChanged', (chainID) => {
-    window.location.reload();
+    setChainId(chainID);
   });
 
   const changeChain = () => {
@@ -62,7 +63,7 @@ function App() {
         ],
       })
       .catch((error) => {
-        console.log(error);
+        message.error(error);
       });
   };
 

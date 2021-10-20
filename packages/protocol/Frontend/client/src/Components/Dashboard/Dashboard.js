@@ -350,10 +350,15 @@ const Dashboard = ({ chainId, changeChain }) => {
                                 withdrawHandler(
                                   stream.streamId,
                                   stream.progress === 100
-                                    ? Web3.utils.fromWei(stream.deposit)
+                                    ? Number(Web3.utils.fromWei(stream.deposit))
                                     : Number(
                                         Web3.utils.fromWei(stream.deposit)
-                                      ) - stream.senderBalance
+                                      ) -
+                                        Number(
+                                          Web3.utils.fromWei(
+                                            stream.senderBalance
+                                          )
+                                        )
                                 )
                               }>
                               Withdraw
@@ -386,9 +391,9 @@ const Dashboard = ({ chainId, changeChain }) => {
       ) : (
         <div className='connect-container'>
           <h2>Please connect to your wallet.</h2>
-          <Button className='wallet' onClick={onConnectWallet}>
+          <button className='wallet' onClick={onConnectWallet}>
             CONNECT WALLET
-          </Button>
+          </button>
         </div>
       )}
     </>
