@@ -1,45 +1,73 @@
-import { Button } from 'antd';
-import { useState } from 'react';
-import './Stream.less';
+import { Button } from "antd";
+import { useState, useEffect } from "react";
+import "./Stream.less";
 
 const Stream = ({ createStream, close, account }) => {
-  const [recipient, setRecepientAddress] = useState('');
-  const [tokenAddress, setTokenAddress] = useState('');
-  const [unixStartTime, setUnixStartTime] = useState('');
-  const [unixStopTime, setUnixStopTime] = useState('');
+  const [recipient, setRecepientAddress] = useState("");
+  const [tokenAddress, setTokenAddress] = useState("");
+  const [unixStartTime, setUnixStartTime] = useState("");
+  const [unixStopTime, setUnixStopTime] = useState("");
   const [deposit, setDeposit] = useState(0);
   const [recommendations, setRecommendations] = useState([]);
-  const [depositError, setDepositError] = useState('');
-  const [startTimeError, setStartTimeError] = useState('');
-  const [stopTimeError, setStopTimeError] = useState('');
+  const [depositError, setDepositError] = useState("");
+  const [startTimeError, setStartTimeError] = useState("");
+  const [stopTimeError, setStopTimeError] = useState("");
+
+  const [durationSeconds, setDurationSeconds] = useState(0);
+  const [durationMinutes, setDurationMinutes] = useState(0);
+  const [durationHours, setDurationHours] = useState(0);
+  const [durationDays, setDurationDays] = useState(0);
+  const [durationWeeks, setDurationWeeks] = useState(0);
+  const [durationYears, setDurationYears] = useState(0);
+
+  useEffect(() => {
+    // console.log(durationYears);
+    onUnixStopTimeChange();
+  }, [
+    durationSeconds,
+    durationMinutes,
+    durationHours,
+    durationDays,
+    durationWeeks,
+    durationYears,
+  ]);
 
   const onUnixStartTimeChange = (time) => {
     let newTime = new Date(time).getTime();
     let currentTime = new Date().getTime();
     if (newTime > currentTime) {
       setUnixStartTime(newTime / 1000);
-      setStartTimeError('');
+      setStartTimeError("");
     } else {
       setStartTimeError(
-        'Please choose a unix start time which is greater then current machine time.'
+        "Please choose a unix start time which is greater then current machine time."
       );
     }
   };
 
-  const onUnixStopTimeChange = (time) => {
-    let newTime = new Date(time).getTime();
+  const onUnixStopTimeChange = () => {
+    let newTime =
+      unixStartTime +
+      durationSeconds +
+      60 * durationMinutes +
+      3600 * durationHours +
+      86400 * durationDays +
+      604800 * durationWeeks +
+      31556926 * durationYears;
+
     let currentTime = new Date().getTime();
-    if (newTime < currentTime) {
+    if (newTime <= currentTime / 1000) {
       setStopTimeError(
-        'Please choose a unix stop time which is greater than your current machine time and unix start time you chose.'
+        "Please choose a unix stop time which is greater than your current machine time and unix start time you chose."
       );
-    } else if (newTime < unixStartTime * 1000) {
+    } else if (newTime <= unixStartTime) {
       setStopTimeError(
-        'Please choose a unix stop time which is greater than unix start time you chose.'
+        "Please choose a unix stop time which is greater than unix start time you chose."
       );
     } else {
-      setStopTimeError('');
-      setUnixStopTime(newTime / 1000);
+      setStopTimeError("");
+      setUnixStopTime(newTime);
+      console.log(unixStartTime, newTime);
     }
   };
 
@@ -48,7 +76,7 @@ const Stream = ({ createStream, close, account }) => {
       if (deposit % (unixStopTime - unixStartTime) === 0) {
         setDeposit(deposit);
         setRecommendations([]);
-        setDepositError('');
+        setDepositError("");
       } else {
         let array = [];
         for (let i = 1; i < 50; i = i + 5) {
@@ -56,12 +84,12 @@ const Stream = ({ createStream, close, account }) => {
         }
         setDeposit(deposit);
         setDepositError(
-          'Deposit value must be multiple of (unix start time - unix stop time).'
+          "Deposit value must be multiple of (unix start time - unix stop time)."
         );
         setRecommendations(array);
       }
     } else {
-      setDepositError('Please fill unix start time and unix stop time first.');
+      setDepositError("Please fill unix start time and unix stop time first.");
     }
   };
 
@@ -72,64 +100,64 @@ const Stream = ({ createStream, close, account }) => {
 
   return (
     <div>
-      <header className='container'>
-        <div className='sublier-head'>
+      <header className="container">
+        <div className="sublier-head">
           <h1>Sablier Contract Interact</h1>
-          <Button shape='round' onClick={close}>
+          <Button shape="round" onClick={close}>
             x
           </Button>
         </div>
         <p>please required fields for creating a streaming</p>
         <h5>Create stream</h5>
         <br />
-        <div className='container'>
+        <div className="container">
           <form onSubmit={(e) => onSubmitForm(e)}>
-            <div className='row '>
-              <div className=' col-sm'>
+            <div className="row ">
+              <div className=" col-sm">
                 <h6>Recepient Address</h6>
                 <input
-                  className='form-control'
-                  id='formGroupExampleInput'
+                  className="form-control"
+                  id="formGroupExampleInput"
                   value={recipient}
                   onChange={(e) => setRecepientAddress(e.target.value)}
-                  placeholder='Recepient Address'
+                  placeholder="Recepient Address"
                   // type="text"
-                  name='recepient Address'
+                  name="recepient Address"
                   required
                 />
               </div>
-              <div className='form-group col-sm'>
+              <div className="form-group col-sm">
                 <h6>Token Address</h6>
                 <input
-                  type='text'
-                  className='form-control'
-                  id='formGroupExampleInput'
-                  placeholder='Token Address'
+                  type="text"
+                  className="form-control"
+                  id="formGroupExampleInput"
+                  placeholder="Token Address"
                   value={tokenAddress}
                   onChange={(e) => setTokenAddress(e.target.value)}
-                  name='tokenAddress'
+                  name="tokenAddress"
                   required
                 />
               </div>
             </div>
 
             <br />
-            <div className='row'>
-              <div className='col-sm form-group'>
+            <div className="row">
+              <div className="col-sm form-group">
                 {/* <label htmlFor="formGroupExampleInput">Start Time (Unix Time)</label> */}
                 <h6>Start Time (Unix Time)</h6>
                 <input
-                  type='datetime-local'
-                  className='form-control'
-                  id='formGroupExampleInput'
+                  type="datetime-local"
+                  className="form-control"
+                  id="formGroupExampleInput"
                   defaultValue={unixStartTime * 1000}
                   onChange={(e) => onUnixStartTimeChange(e.target.value)}
                   //onClick={onClick_UnixStartTime_DateTime}
-                  placeholder='Start Time (Unix Time)'
-                  name='unixStartTime'
+                  placeholder="Start Time (Unix Time)"
+                  name="unixStartTime"
                   required
                 />
-                <div className='error'>{startTimeError}</div>
+                <div className="error">{startTimeError}</div>
                 {/* <DateTimePicker
                   onChange={onChange_UnixStartTime_DateTime}
                   value={
@@ -139,21 +167,78 @@ const Stream = ({ createStream, close, account }) => {
                   closeClock={true}
                 /> */}
               </div>
-              <div className='col-sm form-group'>
+              <div className="col-sm form-group">
                 {/* <label htmlFor="formGroupExampleInput">Stop Time (Unix Time)</label> */}
-                <h6>Stop Time (Unix Time)</h6>
+                <h6>Duration</h6>
+                {/* <div className="row form-group"> */}
                 <input
-                  type='datetime-local'
-                  className='form-control'
-                  id='formGroupExampleInput'
-                  defaultValue={unixStopTime * 1000}
-                  onChange={(e) => onUnixStopTimeChange(e.target.value)}
+                  type="number"
+                  className="form-control"
+                  id="formGroupExampleInput"
+                  // defaultValue={0}
+                  onChange={(e) => setDurationYears(Number(e.target.value))}
                   // onClick={onClick_UnixStopTime_DateTime}
-                  placeholder='Stop Time (Unix Time)'
-                  name='unixStopTime'
+                  placeholder="Years"
+                  name="unixStopTime"
                   required
                 />
-                <div className='error'>{stopTimeError}</div>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="formGroupExampleInput"
+                  // defaultValue={0}
+                  onChange={(e) => setDurationWeeks(Number(e.target.value))}
+                  // onClick={onClick_UnixStopTime_DateTime}
+                  placeholder="Weeks"
+                  name="unixStopTime"
+                  required
+                />
+                <input
+                  type="number"
+                  className="form-control"
+                  id="formGroupExampleInput"
+                  // defaultValue={0}
+                  onChange={(e) => setDurationDays(Number(e.target.value))}
+                  // onClick={onClick_UnixStopTime_DateTime}
+                  placeholder="Days"
+                  name="unixStopTime"
+                  required
+                />
+                <input
+                  type="number"
+                  className="form-control"
+                  id="formGroupExampleInput"
+                  // defaultValue={0}
+                  onChange={(e) => setDurationHours(Number(e.target.value))}
+                  // onClick={onClick_UnixStopTime_DateTime}
+                  placeholder="Hours"
+                  name="unixStopTime"
+                  required
+                />
+                <input
+                  type="number"
+                  className="form-control"
+                  id="formGroupExampleInput"
+                  // defaultValue={0}
+                  onChange={(e) => setDurationMinutes(Number(e.target.value))}
+                  // onClick={onClick_UnixStopTime_DateTime}
+                  placeholder="Minutes"
+                  name="unixStopTime"
+                  required
+                />
+                <input
+                  type="number"
+                  className="form-control"
+                  id="formGroupExampleInput"
+                  // defaultValue={0}
+                  onChange={(e) => setDurationSeconds(Number(e.target.value))}
+                  // onClick={onClick_UnixStopTime_DateTime}
+                  placeholder="Seconds"
+                  name="unixStopTime"
+                  required
+                />
+                {/* </div> */}
+                <div className="error">{stopTimeError}</div>
                 {/* <DateTimePicker
                   onChange={onChange_UnixStopTime_DateTime}
                   value={
@@ -164,46 +249,51 @@ const Stream = ({ createStream, close, account }) => {
               </div>
             </div>
             <br />
-            <div className='row '>
-              <div className=' col-sm'>
+            <div className="row ">
+              <div className=" col-sm">
                 <h6>Amount</h6>
                 <input
-                  className='form-control'
+                  className="form-control"
                   value={deposit}
-                  onChange={(e) =>
-                    onDepositChange(e.target.value === '' ? 0 : +e.target.value)
-                  }
-                  placeholder='Deposit'
-                  type='number'
-                  name='deposit'
+                  onChange={(e) => {
+                    onDepositChange(
+                      e.target.value === "" ? 0 : +e.target.value
+                    );
+                    console.log(e.target.value);
+                  }}
+                  placeholder="Deposit"
+                  type="number"
+                  name="deposit"
                   required
                 />
               </div>
-              <div className='form-group col-sm'>
+              <div className="form-group col-sm">
                 {/* <label htmlFor="formGroupExampleInput">Token Address</label>  */}
                 {recommendations.length ? (
                   <>
                     <p>Some recommended deposits you can try</p>
                     <ul
                       style={{
-                        listStyleType: 'none',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                        margin: '0',
-                        padding: '0',
-                      }}>
+                        listStyleType: "none",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        margin: "0",
+                        padding: "0",
+                      }}
+                    >
                       {recommendations.map((e) => (
                         <li
                           key={e}
                           style={{
-                            border: '1px solid #00000078',
-                            borderRadius: '3px',
-                            padding: '2px 5px',
-                            cursor: 'pointer',
+                            border: "1px solid #00000078",
+                            borderRadius: "3px",
+                            padding: "2px 5px",
+                            cursor: "pointer",
                           }}
-                          onClick={() => onDepositChange(e)}>
+                          onClick={() => onDepositChange(e)}
+                        >
                           {e}
                         </li>
                       ))}
@@ -212,12 +302,13 @@ const Stream = ({ createStream, close, account }) => {
                 ) : null}
               </div>
             </div>
-            <div className='error'>{depositError}</div>
+            <div className="error">{depositError}</div>
             <br />
             <button
               className={`button ${
-                (depositError || startTimeError || stopTimeError) && 'disabled'
-              }`}>
+                (depositError || startTimeError || stopTimeError) && "disabled"
+              }`}
+            >
               Create Stream
             </button>
           </form>
