@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link,withRouter } from 'react-router-dom';
-import { Button, Tabs, Drawer } from 'antd';
+import { Button, Tabs, Drawer,message } from 'antd';
 import { useState, useContext,useEffect } from 'react';
 import { AccountContext } from '../../context/AccountContext';
 import image from '../../images/Group 5458.png';
@@ -42,8 +42,9 @@ const Navbar = ({history,location}) => {
     let response = await connectWallet();
     if (response.status) {
       changeAccount(response.account);
+      message.success('Successfully connected!')
     } else {
-      console.log('Something went wrong!');
+      message.error('Something went wrong!');
     }
   };
 
@@ -88,8 +89,7 @@ const Navbar = ({history,location}) => {
       {!account ? (
         <Button
           className='wallet'
-          onClick={onConnectWallet}>
-          <span className='darkbg'>CONNECT WALLET</span>
+          onClick={onConnectWallet}>CONNECT WALLET
         </Button>
       ):(
         <div className="account" title={account}>{`${account.slice(0,15)}...`}</div>
