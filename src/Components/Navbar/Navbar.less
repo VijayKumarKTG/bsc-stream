@@ -1,0 +1,144 @@
+.navigation-container {
+  .ant-drawer-content {
+    border-radius: 0px 12px 12px 0px;
+  }
+}
+
+.nav-container {
+  height: 65px;
+  padding: 0px 10px;
+  box-shadow: 0px 3px 3px #0000001a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    height: 48px;
+    padding: 0px 15px 0px 15px;
+  }
+
+  @media (min-width: 1024px) {
+    height: 48px;
+    padding: 0px 30px 0px 30px;
+  }
+
+  .logo {
+    width: 124px;
+    height: 29px;
+    margin: 10px 0px;
+  }
+
+  .menu {
+    width: 24px;
+    height: 24px;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .ant-tabs {
+    @media (min-width: 768px) {
+      margin-right: 15px;
+    }
+
+    .nav-item-text {
+      font-family: 'Gilroy-medium';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 5px;
+    }
+  }
+
+  .wallet {
+    border-radius: 100rem;
+    padding: 1rem;
+    font-family: 'Gilroy-SemiBold';
+    font-size: 1rem;
+    padding: 0rem 1rem;
+    box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+    border: solid 3px transparent;
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0)
+      ),
+      linear-gradient(101deg, #78e4ff, #ff48fa);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 2px 1000px 1px #fff inset;
+
+    &:hover {
+      box-shadow: none;
+      color: white;
+    }
+  }
+
+  .account {
+    font: normal normal normal 11px/24px Gilroy-Medium;
+    letter-spacing: 0.44px;
+    color: #2b8dff;
+    text-transform: uppercase;
+  }
+}
+
+// Following style is to change the layout of tabs for mobile devices
+.tabs-container > .ant-tabs > .ant-tabs-nav {
+  @media (min-width: 768px) {
+    margin: 0px;
+  }
+
+  & > .ant-tabs-nav-wrap {
+    display: inline-block;
+    margin: auto;
+
+    .ant-tabs-nav-list {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .ant-tabs-tab {
+        margin: 0 !important ;
+
+        @media (min-width: 768px) {
+          margin-left: 42px !important;
+        }
+      }
+
+      .ant-tabs-ink-bar {
+        display: none;
+
+        @media (min-width: 768px) {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+.desktop {
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}

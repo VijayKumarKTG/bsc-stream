@@ -1,0 +1,45 @@
+button.button {
+  border-radius: 100rem;
+  padding: 1rem;
+  font-family: 'Gilroy-SemiBold';
+  font-size: 1rem;
+  padding: 0rem 1rem;
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(101deg, #78e4ff, #ff48fa);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #fff inset;
+
+  &:hover {
+    box-shadow: none;
+    color: white;
+  }
+}
+
+button.button.disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+button.button.disabled:hover {
+  box-shadow: 2px 1000px 1px #fff inset;
+  color: initial;
+}
+
+.error {
+  margin-top: 10px;
+  color: hsl(0, 100%, 69%);
+  font-size: 0.9em;
+  font-family: 'Avenir Next';
+}
+
+.sublier-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
